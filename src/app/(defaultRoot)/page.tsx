@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { client } from "@/libs/microcms";
-import { BlogPostList } from "./_features/BlogPostList";
-import { Header } from "./_features/Header";
-import { Footer } from "./_features/Footer";
+import { BlogPostList } from "@features/BlogPostList";
+import { Header } from "@features/Header";
+import { Footer } from "@features/Footer";
 
 export default async function Home() {
 	return (
