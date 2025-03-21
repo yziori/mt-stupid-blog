@@ -39,7 +39,7 @@ export const BlogCardUI: React.FC<BlogCardUIProps> = ({
 				<div className="text-sm text-gray-500 mb-2">{createdAt}</div>
 				<h3 className="font-medium mb-3">{title}</h3>
 				<div className="flex flex-wrap gap-2">
-					{tags.slice(0, 3).map((tag) => (
+					{tags?.map((tag) => (
 						<span
 							key={`${id}-tag-${tag.id}`}
 							className="text-xs bg-gray-100 px-2 py-1 rounded-full"
