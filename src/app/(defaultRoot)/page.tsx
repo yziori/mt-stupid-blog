@@ -7,7 +7,6 @@ import { Footer } from "@features/Footer";
 export default async function Home() {
 	return (
 		<main>
-			<Header />
 			<section className="relative overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-b from-[#023474] to-[#6a98d0] z-0">
 					<div className="absolute bottom-0 left-0 right-0">
@@ -45,7 +44,6 @@ export default async function Home() {
 			</section>
 
 			<BlogPostList />
-			<Footer />
 		</main>
 	);
 }
