@@ -34,7 +34,5 @@ export const BlogPostListContainer = async () => {
 
 	const posts = await getBlogPosts();
 
-	console.log(posts);
-
 	return <BlogPostListUI posts={posts} />;
 };
