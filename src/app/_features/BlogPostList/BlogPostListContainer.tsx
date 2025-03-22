@@ -20,21 +20,42 @@ export type BlogPost = {
 	thumbnail?: Thumbnail;
 };
 
-export const BlogPostListContainer = async () => {
-	async function getBlogPosts(): Promise<BlogPost[]> {
-		const data = await client.get({
-			endpoint: "blogs",
-			queries: {
-				fields: "id,title,createdAt,tags,thumbnail",
-				limit: 5,
-			},
-		});
-		return data.contents;
-	}
+type Response = {
+	contents: BlogPost[];
+	totalCount: number;
+	offset: number;
+	limit: number;
+};
 
-	const posts = await getBlogPosts();
+type BlogPostListContainerProps = {
+	page: number;
+};
 
-	console.log(posts);
+async function getBlogPosts(page: number): Promise<Response> {
+	const data = await client.get({
+		endpoint: "blogs",
+		queries: {
+			fields: "id,title,createdAt,tags,thumbnail",
+			limit: 5,
+			offset: (page - 1) * 5,
+		},
+	});
+	return data;
+}
 
-	return <BlogPostListUI posts={posts} />;
+export const BlogPostListContainer: React.FC<
+	BlogPostListContainerProps
+> = async ({ page }) => {
+	const data = await getBlogPosts(page);
+	const blogPosts = data.contents;
+	const totalCount = data.totalCount;
+	const totalPages = Math.ceil(totalCount / 12);
+
+	return (
+		<BlogPostListUI
+			blogPosts={blogPosts}
+			currentPage={page}
+			totalPages={totalPages}
+		/>
+	);
 };

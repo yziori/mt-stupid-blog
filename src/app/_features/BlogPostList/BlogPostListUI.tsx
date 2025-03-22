@@ -1,38 +1,53 @@
-import { BlogCard } from "@components/BlogCard";
-import { Button } from "@components/ui/button";
+"use client";
 
 import type { BlogPost } from "./BlogPostListContainer";
+import { BlogCard } from "@components/BlogCard";
+import { Pagination } from "@/app/_components/Pagination";
+import { useRouter } from "next/navigation";
 
 type BlogPostListUIProps = {
-	posts: BlogPost[];
+	blogPosts: BlogPost[];
+	currentPage: number;
+	totalPages: number;
 };
 
-/**
- * BlogListコンポーネントのUI部分
- */
-export const BlogPostListUI: React.FC<BlogPostListUIProps> = ({ posts }) => {
-	return (
-		<section className="container mx-auto px-4 py-16">
-			<h2 className="text-3xl font-bold text-[#023474] mb-8">Blog</h2>
+export const BlogPostListUI: React.FC<BlogPostListUIProps> = ({
+	blogPosts,
+	currentPage,
+	totalPages,
+}) => {
+	const router = useRouter();
 
-			<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-				{posts.map((post) => (
+	const handlePageChange = (page: number): void => {
+		router.push(`/blog/page/${page}`);
+	};
+
+	return (
+		<div className="container mx-auto px-4 py-12 flex-grow">
+			<h1 className="text-5xl font-bold text-center mb-12">Blog</h1>
+
+			{/* Blog Grid */}
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{blogPosts.map((post) => (
 					<BlogCard
 						key={post.id}
 						id={post.id}
+						createdAt={post.createdAt}
 						title={post.title}
 						tags={post.tags}
-						createdAt={post.createdAt}
 						thumbnail={post.thumbnail?.url}
 					/>
 				))}
 			</div>
 
-			<div className="flex justify-center mt-12">
-				<Button className="bg-[#023474] hover:bg-[#023474]/90 text-white px-8 py-2 rounded-full">
-					もっと見る <span className="ml-2">→</span>
-				</Button>
+			{/* Pagination */}
+			<div className="mt-12">
+				<Pagination
+					currentPage={currentPage}
+					totalPages={totalPages}
+					onPageChange={handlePageChange}
+				/>
 			</div>
-		</section>
+		</div>
 	);
 };
