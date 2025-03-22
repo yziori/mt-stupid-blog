@@ -1,11 +1,9 @@
 {
-	"extends": ["markuplint:recommended", "markuplint:recommended-react"],
+	"extends": ["markuplint:recommended-react"],
 	"parser": {
-		"\\.jsx$": "@markuplint/jsx-parser",
-		"\\.tsx$": "@markuplint/jsx-parser"
+		".[jt]sx$": "@markuplint/jsx-parser"
 	},
 	"specs": {
-		"\\.jsx$": "@markuplint/react-spec",
-		"\\.tsx$": "@markuplint/jsx-parser"
+		".[jt]sx$": "@markuplint/react-spec"
 	}
 }
