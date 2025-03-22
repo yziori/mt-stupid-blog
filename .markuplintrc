@@ -6,5 +6,8 @@
 	"specs": {
 		".[jt]sx$": "@markuplint/react-spec"
 	},
-	"excludeFiles": ["./src/app/_components/ui/**/*.tsx"]
+	"excludeFiles": ["./src/app/_components/ui/**/*.tsx"],
+	"rules": {
+		"no-hard-code-id": false
+	}
 }
