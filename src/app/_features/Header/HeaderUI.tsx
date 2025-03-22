@@ -22,7 +22,7 @@ export const HeaderUI: React.FC = () => {
 				<Link href="/about" className="hover:text-[#023474]">
 					About
 				</Link>
-				<Link href="/blog" className="hover:text-[#023474]">
+				<Link href="/blog/page/1" className="hover:text-[#023474]">
 					Blog
 				</Link>
 				<Link href="/tag" className="hover:text-[#023474]">
