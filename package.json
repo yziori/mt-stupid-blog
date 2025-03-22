@@ -10,8 +10,8 @@
 		"lint:html": "markuplint \"src/**/*.{html,jsx,tsx}\"",
 		"sb": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
-		"biome:check": "biome check .",
-		"biome:format": "biome format . --write"
+		"biome:check": "biome lint src",
+		"biome:format": "biome format src --write"
 	},
 	"dependencies": {
 		"@radix-ui/react-slot": "^1.1.2",
