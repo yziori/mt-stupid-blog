@@ -1,3 +1,4 @@
+import { BlogPostDetail } from "@/app/_features/BlogPostDetail";
 import { client } from "@/libs/microcms";
 
 export async function generateStaticParams() {
@@ -8,13 +9,9 @@ export async function generateStaticParams() {
 		},
 	});
 
-	const slugs = data.contents.map((content: { id: string }) => content.id);
-
-	const paths = slugs.map((slug: string) => ({
-		params: { slug },
+	return data.contents.map((content: { id: string }) => ({
+		slug: content.id,
 	}));
-
-	return paths;
 }
 
 type BlogPostDetailPageParams = {
@@ -28,7 +25,7 @@ export default async function BlogPostDetailPage({
 
 	return (
 		<main>
-			<h1>BlogPostDetailPage</h1>
+			<BlogPostDetail blogPostId={blogPostId} />
 		</main>
 	);
 }

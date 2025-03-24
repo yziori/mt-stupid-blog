@@ -15,7 +15,19 @@ export type BlogPost = {
 	thumbnail?: Thumbnail;
 };
 
-export type BlogResponse = {
+export type BlogPostResponse = {
+	id: string;
+	createdAt: string;
+	updatedAt: string;
+	publishedAt: string;
+	reviseAt: string;
+	title: string;
+	content: string;
+	tags: Tag[];
+	thumbnail: Thumbnail;
+};
+
+export type BlogPostListResponse = {
 	contents: BlogPost[];
 	totalCount: number;
 	offset: number;
