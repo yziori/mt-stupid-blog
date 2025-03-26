@@ -1,7 +1,7 @@
-import type { BlogPostResponse } from "@/app/_libs/microcms/blogs/types";
+import type { BlogPostListResponse } from "@/app/_libs/microcms/blogs/types";
 
 type BlogPostDetailUIProps = {
-	blogPost: BlogPostResponse;
+	blogPost: BlogPostListResponse;
 };
 
 export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
@@ -10,7 +10,7 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 	return (
 		<div>
 			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
-			<div dangerouslySetInnerHTML={{ __html: blogPost.content }} />
+			<div dangerouslySetInnerHTML={{ __html: blogPost.contents[0].content }} />
 		</div>
 	);
 };

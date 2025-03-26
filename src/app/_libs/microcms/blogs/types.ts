@@ -9,14 +9,6 @@ type Thumbnail = {
 
 export type BlogPost = {
 	id: string;
-	title: string;
-	tags: Tag[];
-	createdAt: string;
-	thumbnail?: Thumbnail;
-};
-
-export type BlogPostResponse = {
-	id: string;
 	createdAt: string;
 	updatedAt: string;
 	publishedAt: string;

@@ -10,7 +10,7 @@ export async function generateStaticParams() {
 	});
 
 	return data.contents.map((content: { id: string }) => ({
-		slug: content.id,
+		id: content.id,
 	}));
 }
 

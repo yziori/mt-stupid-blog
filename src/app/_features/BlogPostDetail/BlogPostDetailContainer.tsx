@@ -1,8 +1,8 @@
 import { client } from "@/app/_libs/microcms";
-import type { BlogPostResponse } from "@/app/_libs/microcms/blogs/types";
+import type { BlogPostListResponse } from "@/app/_libs/microcms/blogs/types";
 import { BlogPostDetailUI } from "./BlogPostDetailUI";
 
-async function getBlogPost(contentId: string): Promise<BlogPostResponse> {
+async function getBlogPost(contentId: string): Promise<BlogPostListResponse> {
 	const data = await client.get({
 		endpoint: "blogs",
 		contentId,
