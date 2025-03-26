@@ -1,6 +1,6 @@
 import { BlogPostListUI } from "./BlogPostListUI";
-import { client } from "@/libs/microcms";
-import type { BlogPost } from "@/libs/microcms/blogs/types";
+import { client } from "@/app/_libs/microcms";
+import type { BlogPost } from "@/app/_libs/microcms/blogs/types";
 
 export const BlogPostListContainer = async () => {
 	async function getBlogPosts(): Promise<BlogPost[]> {

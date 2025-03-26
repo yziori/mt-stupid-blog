@@ -1,5 +1,5 @@
-import { client } from "@/libs/microcms";
-import type { BlogPostResponse } from "@/libs/microcms/blogs/types";
+import { client } from "@/app/_libs/microcms";
+import type { BlogPostResponse } from "@/app/_libs/microcms/blogs/types";
 import { BlogPostDetailUI } from "./BlogPostDetailUI";
 
 async function getBlogPost(contentId: string): Promise<BlogPostResponse> {

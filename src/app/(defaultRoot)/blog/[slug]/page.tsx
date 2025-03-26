@@ -1,5 +1,5 @@
 import { BlogPostDetail } from "@/app/_features/BlogPostDetail";
-import { client } from "@/libs/microcms";
+import { client } from "@/app/_libs/microcms";
 
 export async function generateStaticParams() {
 	const data = await client.get({

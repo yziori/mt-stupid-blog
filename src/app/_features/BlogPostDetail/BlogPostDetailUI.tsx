@@ -1,4 +1,4 @@
-import type { BlogPostResponse } from "@/libs/microcms/blogs/types";
+import type { BlogPostResponse } from "@/app/_libs/microcms/blogs/types";
 
 type BlogPostDetailUIProps = {
 	blogPost: BlogPostResponse;

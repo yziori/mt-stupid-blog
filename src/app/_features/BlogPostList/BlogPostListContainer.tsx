@@ -1,6 +1,6 @@
 import { BlogPostListUI } from "./BlogPostListUI";
-import { client } from "@/libs/microcms";
-import type { BlogPostListResponse } from "@/libs/microcms/blogs/types";
+import { client } from "@/app/_libs/microcms";
+import type { BlogPostListResponse } from "@/app/_libs/microcms/blogs/types";
 
 type BlogPostListContainerProps = {
 	page: number;

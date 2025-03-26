@@ -1,6 +1,6 @@
 "use client";
 
-import type { BlogPost } from "./BlogPostListContainer";
+import type { BlogPost } from "@libs/microcms/blogs/types";
 import { BlogCard } from "@components/BlogCard";
 import { Pagination } from "@/app/_components/Pagination";
 import { useRouter } from "next/navigation";
