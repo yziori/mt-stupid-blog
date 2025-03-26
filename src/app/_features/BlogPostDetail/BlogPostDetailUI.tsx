@@ -8,9 +8,9 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 	blogPost,
 }) => {
 	return (
-		<div>
+		<article>
 			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
 			<div dangerouslySetInnerHTML={{ __html: blogPost.contents[0].content }} />
-		</div>
+		</article>
 	);
 };
