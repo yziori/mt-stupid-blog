@@ -1,24 +1,6 @@
 import { BlogPostListUI } from "./BlogPostListUI";
-import { client } from "@libs/microcms";
-
-// TODO: typeの場所移動すること
-// TODO: 呼び出し関数用のディレクトリを作成すること
-type Tag = {
-	id: string;
-	name: string;
-};
-
-type Thumbnail = {
-	url: string;
-};
-
-export type BlogPost = {
-	id: string;
-	title: string;
-	tags: Tag[];
-	createdAt: string;
-	thumbnail?: Thumbnail;
-};
+import { client } from "@/app/_libs/microcms";
+import type { BlogPost } from "@/app/_libs/microcms/blogs/types";
 
 export const BlogPostListContainer = async () => {
 	async function getBlogPosts(): Promise<BlogPost[]> {

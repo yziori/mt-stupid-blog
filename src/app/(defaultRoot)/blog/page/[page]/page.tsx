@@ -1,4 +1,4 @@
-import { client } from "@/libs/microcms";
+import { client } from "@/app/_libs/microcms";
 import { BlogPostListContainer } from "@features/BlogPostList/BlogPostListContainer";
 
 export async function generateStaticParams() {
