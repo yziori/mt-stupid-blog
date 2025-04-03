@@ -1,7 +1,7 @@
 import { BlogCard } from "@components/BlogCard";
 import { Button } from "@components/ui/button";
-
-import type { BlogPost } from "./BlogPostListContainer";
+import type { BlogPost } from "@libs/microcms/blogs/types";
+import Link from "next/link";
 
 type BlogPostListUIProps = {
 	posts: BlogPost[];
@@ -17,14 +17,16 @@ export const BlogPostListUI: React.FC<BlogPostListUIProps> = ({ posts }) => {
 
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 				{posts.map((post) => (
-					<BlogCard
-						key={post.id}
-						id={post.id}
-						title={post.title}
-						tags={post.tags}
-						createdAt={post.createdAt}
-						thumbnail={post.thumbnail?.url}
-					/>
+					<Link key={post.id} href={`/blog/${post.id}`} className="block">
+						<BlogCard
+							key={post.id}
+							id={post.id}
+							title={post.title}
+							tags={post.tags}
+							createdAt={post.createdAt}
+							thumbnail={post.thumbnail?.url}
+						/>
+					</Link>
 				))}
 			</div>
 
