@@ -19,7 +19,7 @@ export type BlogPost = {
 	thumbnail: Thumbnail;
 };
 
-export type BlogPostListResponse = {
+export type GetBlogPostListResponse = {
 	contents: BlogPost[];
 	totalCount: number;
 	offset: number;

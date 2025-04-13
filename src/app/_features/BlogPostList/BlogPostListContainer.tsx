@@ -1,12 +1,12 @@
 import { BlogPostListUI } from "./BlogPostListUI";
 import { client } from "@/app/_libs/microcms";
-import type { BlogPostListResponse } from "@/app/_libs/microcms/blogs/types";
+import type { GetBlogPostListResponse } from "@/app/_libs/microcms/blogs/types";
 
 type BlogPostListContainerProps = {
 	page: number;
 };
 
-async function getBlogPosts(page: number): Promise<BlogPostListResponse> {
+async function getBlogPosts(page: number): Promise<GetBlogPostListResponse> {
 	const data = await client.get({
 		endpoint: "blogs",
 		queries: {
