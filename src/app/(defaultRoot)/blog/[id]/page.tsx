@@ -24,8 +24,8 @@ export default async function BlogPostDetailPage({
 	const blogPostId = params.slug;
 
 	return (
-		<main>
+		<>
 			<BlogPostDetail blogPostId={blogPostId} />
-		</main>
+		</>
 	);
 }

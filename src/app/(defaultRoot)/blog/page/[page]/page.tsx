@@ -30,8 +30,8 @@ export default async function BlogPostListPage({
 	const page = Number(params.page);
 
 	return (
-		<main>
+		<>
 			<BlogPostListContainer page={page} />
-		</main>
+		</>
 	);
 }
