@@ -1,5 +1,5 @@
 import { client } from "@/app/_libs/microcms";
-import { BlogPostListContainer } from "@features/BlogPostList/BlogPostListContainer";
+import { BlogPostList } from "@features/BlogPostList";
 
 export async function generateStaticParams() {
 	const data = await client.get({
@@ -29,9 +29,5 @@ export default async function BlogPostListPage({
 }: BlogPostListPageParams) {
 	const page = Number(params.page);
 
-	return (
-		<main>
-			<BlogPostListContainer page={page} />
-		</main>
-	);
+	return <BlogPostList page={page} />;
 }

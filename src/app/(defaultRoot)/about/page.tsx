@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function AboutPage() {
 	return (
-		<main className="flex flex-col justify-center items-center px-4 min-h-screen">
+		<div className="flex flex-col justify-center items-center px-4 min-h-screen">
 			<div className="max-w-2xl w-full flex flex-col items-center">
 				<h1 className="text-5xl font-bold text-center mb-8">About</h1>
 
@@ -82,6 +82,6 @@ export default function AboutPage() {
 					</div>
 				</div>
 			</div>
-		</main>
+		</div>
 	);
 }
