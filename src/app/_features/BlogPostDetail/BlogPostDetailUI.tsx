@@ -1,23 +1,23 @@
 "use client";
 
-import type { BlogPostListResponse } from "@/app/_libs/microcms/blogs/types";
+import type { BlogPost } from "@/app/_libs/microcms/blogs/types";
 import { renderToc } from "./renderToc";
 import { formatToDotDate } from "@utils/dataUtils";
 
 type BlogPostDetailUIProps = {
-	blogPost: BlogPostListResponse;
+	blogPost: BlogPost;
 };
 
 export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 	blogPost,
 }) => {
-	const post = blogPost.contents[0];
+	const post = blogPost;
 	const toc = renderToc(post.content);
 
 	return (
-		<div className="flex flex-col">
-			{/* Main Content - Centered */}
-			<div className="max-w-5xl mx-auto w-full px-4 md:px-10">
+		<div className="relative">
+			{/* 本文コンテナ：大画面時に右側に余白を追加 */}
+			<div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto w-full px-4 md:px-10 lg:pr-72">
 				{/* Article Header */}
 				<div className="mb-8">
 					<div className="flex gap-2 text-sm text-gray-500 mb-2">
@@ -44,34 +44,33 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 					{/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
 					<div dangerouslySetInnerHTML={{ __html: post.content }} />
 				</article>
-
-				{/* Table of Contents - Fixed position on the right for large screens */}
-				<div className="hidden lg:block fixed right-4 top-24 w-64">
-					<SimpleTOC tableOfContents={toc} />
-				</div>
 			</div>
+
+			{/* Fixed TOC：画面スクロールに追従 */}
+			<aside className="hidden lg:block fixed top-24 right-4 w-64">
+				<SimpleTOC tableOfContents={toc} />
+			</aside>
 		</div>
 	);
 };
 
-// 目次コンポーネント
 function SimpleTOC({
 	tableOfContents,
-}: { tableOfContents: { id: string; text: string; level: number }[] }) {
+}: {
+	tableOfContents: { id: string; text: string; level: number }[];
+}) {
 	return (
-		<div className="sticky top-4">
-			<div className="bg-[#d6e8ff] rounded-md p-4">
-				<h2 className="font-bold border-b border-gray-300 pb-2 mb-2">目次</h2>
-				<ul className="space-y-1">
-					{tableOfContents.map((item) => (
-						<li key={item.id} className={item.level > 2 ? "pl-4" : ""}>
-							<a href={`#${item.id}`} className="text-sm hover:underline">
-								{item.text}
-							</a>
-						</li>
-					))}
-				</ul>
-			</div>
+		<div className="bg-[#d6e8ff] rounded-md p-4">
+			<h2 className="font-bold border-b border-gray-300 pb-2 mb-2">目次</h2>
+			<ul className="space-y-1">
+				{tableOfContents.map((item) => (
+					<li key={item.id} className={item.level > 2 ? "pl-4" : ""}>
+						<a href={`#${item.id}`} className="text-sm hover:underline">
+							{item.text}
+						</a>
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 }
