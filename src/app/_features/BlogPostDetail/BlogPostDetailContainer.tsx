@@ -1,14 +1,14 @@
 import { client } from "@/app/_libs/microcms";
-import type { BlogPostListResponse } from "@/app/_libs/microcms/blogs/types";
+import type { BlogPost } from "@/app/_libs/microcms/blogs/types";
 import { BlogPostDetailUI } from "./BlogPostDetailUI";
 
-async function getBlogPost(contentId: string): Promise<BlogPostListResponse> {
+async function getBlogPost(contentId: string): Promise<BlogPost> {
 	const data = await client.get({
 		endpoint: "blogs",
 		contentId,
 	});
 
-	return data;
+	return data?.contents[0];
 }
 
 type BlogPostDetailContainerProps = {
@@ -20,9 +20,5 @@ export const BlogPostDetailContainer: React.FC<
 > = async ({ blogPostId }) => {
 	const blogPost = await getBlogPost(blogPostId);
 
-	return (
-		<>
-			<BlogPostDetailUI blogPost={blogPost} />
-		</>
-	);
+	return <BlogPostDetailUI blogPost={blogPost} />;
 };
