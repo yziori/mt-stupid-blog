@@ -31,9 +31,11 @@ export const BlogPostListUI: React.FC<BlogPostListUIProps> = ({ posts }) => {
 			</div>
 
 			<div className="flex justify-center mt-12">
-				<Button className="bg-[#023474] hover:bg-[#023474]/90 text-white px-8 py-2 rounded-full">
-					もっと見る <span className="ml-2">→</span>
-				</Button>
+				<Link href={"/blog/page/1"}>
+					<Button className="bg-[#023474] hover:bg-[#023474]/90 text-white px-8 py-2 rounded-full">
+						もっと見る <span className="ml-2">→</span>
+					</Button>
+				</Link>
 			</div>
 		</section>
 	);
