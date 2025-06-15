@@ -15,17 +15,17 @@ export async function generateStaticParams() {
 }
 
 type BlogPostDetailPageParams = {
-	params: { slug: string };
+	params: Promise<{ id: string }>;
 };
 
 export default async function BlogPostDetailPage({
 	params,
 }: BlogPostDetailPageParams) {
-	const blogPostId = params.slug;
+	const { id } = await params;
 
 	return (
 		<>
-			<BlogPostDetail blogPostId={blogPostId} />
+			<BlogPostDetail blogPostId={id} />
 		</>
 	);
 }

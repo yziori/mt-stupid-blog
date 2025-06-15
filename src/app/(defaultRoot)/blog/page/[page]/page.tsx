@@ -21,13 +21,14 @@ export async function generateStaticParams() {
 }
 
 type BlogPostListPageParams = {
-	params: { page: string };
+	params: Promise<{ page: string }>;
 };
 
 export default async function BlogPostListPage({
 	params,
 }: BlogPostListPageParams) {
-	const page = Number(params.page);
+	const { page: pageParam } = await params;
+	const page = Number(pageParam);
 
 	return <BlogPostList page={page} />;
 }
