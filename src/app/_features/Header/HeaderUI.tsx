@@ -5,37 +5,43 @@ import { Input } from "@components/ui/input";
 
 export const HeaderUI: React.FC = () => {
 	return (
-		<header className="container mx-auto py-4 px-4 flex items-center justify-between">
-			<Link href="/" className="font-bold text-xl">
-				Mt.STUPID
-			</Link>
-
-			<div className="relative max-w-md w-full mx-4">
-				<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-				<Input
-					className="pl-10 pr-4 py-2 w-full rounded-full border border-gray-200"
-					placeholder="フリーワードで検索..."
-				/>
-			</div>
-
-			<nav className="hidden md:flex items-center gap-6">
-				<Link href="/about" className="hover:text-[#023474]">
-					About
-				</Link>
-				<Link href="/blog/page/1" className="hover:text-[#023474]">
-					Blog
-				</Link>
-				<Link href="/tags" className="hover:text-[#023474]">
-					Tag
-				</Link>
-				<Link href="/portfolio" className="hover:text-[#023474]">
-					Portfolio
-				</Link>
-				<div className="flex items-center gap-2">
-					<Moon className="h-4 w-4" />
-					<Switch />
-				</div>
-			</nav>
-		</header>
+   <header className="px-4 py-4 fixed top-0 left-0 right-0 z-50">
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-white dark:bg-gray-800 rounded-full px-6 py-3 flex items-center justify-between shadow-lg">
+          <div className="flex items-center gap-6">
+            <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white">
+              Mt.STUPID
+            </Link>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4" />
+              <Input
+                placeholder="フリーワードで検索..."
+                className="pl-10 w-64 border-gray-300 dark:border-gray-600 rounded-full bg-gray-50 dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-6">
+            <nav className="flex items-center gap-6">
+              <Link
+                href="/blog"
+                className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium"
+              >
+                Blog
+              </Link>
+              <Link
+                href="/tag"
+                className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium"
+              >
+                Tag
+              </Link>
+              <Link href="/portfolio" className="text-gray-400 dark:text-gray-500 font-medium cursor-not-allowed">
+                Portfolio
+              </Link>
+            </nav>
+            <Switch />
+          </div>
+        </div>
+      </div>
+    </header>
 	);
 };
