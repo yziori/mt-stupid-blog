@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Search, Moon } from "lucide-react";
+import { Search } from "lucide-react";
 import { Switch } from "@components/ui/switch";
 import { Input } from "@components/ui/input";
 

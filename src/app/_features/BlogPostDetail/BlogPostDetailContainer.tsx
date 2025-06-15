@@ -8,7 +8,7 @@ async function getBlogPost(contentId: string): Promise<BlogPost> {
 		contentId,
 	});
 
-	return data?.contents[0];
+	return data;
 }
 
 type BlogPostDetailContainerProps = {
