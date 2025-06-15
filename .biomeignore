@@ -1,0 +1,19 @@
+# node_modules は無視
+node_modules/
+
+# 出力ファイル
+dist/
+build/
+
+# Storybookのビルド結果
+.storybook-static/
+
+# テストのスナップショット
+__snapshots__/
+
+# コンフィグファイルを除外したい場合
+*.config.js
+*.config.ts
+
+# HTMLだけはlintしたくない
+**/*.html

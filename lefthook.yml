@@ -1,0 +1,9 @@
+pre-commit:
+  parallel: true
+  commands:
+    biome-check:
+      run: pnpm biome:check
+    biome-format:
+      run: pnpm biome:format
+    markuplint:
+      run: pnpm lint:html
