@@ -32,7 +32,7 @@ export const BlogPostListUI: React.FC<BlogPostListUIProps> = ({ posts }) => {
 
 			<div className="flex justify-center mt-12">
 				<Link href={"/blog/page/1"}>
-					<Button className="bg-[#023474] hover:bg-[#023474]/90 text-white px-8 py-2 rounded-full">
+					<Button className="bg-[#022B92] hover:bg-[#023474]/90 text-white px-8 py-2 rounded-full">
 						もっと見る <span className="ml-2">→</span>
 					</Button>
 				</Link>
