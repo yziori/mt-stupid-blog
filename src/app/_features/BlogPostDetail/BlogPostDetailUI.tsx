@@ -16,41 +16,49 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 	const toc = renderToc(post.content);
 
 	return (
-		<div className="relative">
-			{/* 本文コンテナ：大画面時に右側に余白を追加 */}
-			<div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto w-full px-4 md:px-10 lg:pr-72">
-				{/* Article Header */}
-				<div className="mb-8">
-					<div className="flex gap-2 text-sm text-gray-500 mb-2">
-						<span>📅 {formatToDotDate(post.publishedAt)}</span>
-						{post.updatedAt && (
-							<span>📝 {formatToDotDate(post.updatedAt)}</span>
-						)}
-					</div>
-					<h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-					<div className="flex gap-2 flex-wrap">
-						{post.tags.map((tag, index) => (
-							<span
-								key={typeof tag === "object" ? (tag.id ?? index) : index}
-								className="text-xs bg-gray-100 px-2 py-1 rounded-full"
-							>
-								#{typeof tag === "object" ? tag.name : tag}
+		<div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
+			<div className="relative">
+				{/* 本文コンテナ：大画面時に右側に余白を追加 */}
+				<div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto w-full px-4 md:px-8 lg:px-10 lg:pr-80 py-8">
+					{/* Article Header */}
+					<div className="mb-8 bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
+						<div className="flex gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
+							<span className="flex items-center gap-1">
+								📅 {formatToDotDate(post.publishedAt)}
 							</span>
-						))}
+							{post.updatedAt && (
+								<span className="flex items-center gap-1">
+									📝 {formatToDotDate(post.updatedAt)}
+								</span>
+							)}
+						</div>
+						<h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-900 dark:text-white leading-tight">
+							{post.title}
+						</h1>
+						<div className="flex gap-2 flex-wrap">
+							{post.tags.map((tag, index) => (
+								<span
+									key={typeof tag === "object" ? (tag.id ?? index) : index}
+									className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full font-medium"
+								>
+									#{typeof tag === "object" ? tag.name : tag}
+								</span>
+							))}
+						</div>
 					</div>
+
+					{/* Article Body */}
+					<article className="prose dark:prose-invert max-w-none bg-white dark:bg-gray-800 rounded-lg p-6 lg:p-8 shadow-sm">
+						{/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
+						<div dangerouslySetInnerHTML={{ __html: post.content }} />
+					</article>
 				</div>
 
-				{/* Article Body */}
-				<article className="prose dark:prose-invert max-w-none">
-					{/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
-					<div dangerouslySetInnerHTML={{ __html: post.content }} />
-				</article>
+				{/* Fixed TOC：画面スクロールに追従 */}
+				<aside className="hidden lg:block fixed top-28 right-4 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto">
+					<SimpleTOC tableOfContents={toc} offset={-100} />
+				</aside>
 			</div>
-
-			{/* Fixed TOC：画面スクロールに追従 */}
-			<aside className="hidden lg:block fixed top-24 right-4 w-64">
-				<SimpleTOC tableOfContents={toc} offset={-100} />
-			</aside>
 		</div>
 	);
 };
@@ -95,9 +103,11 @@ function SimpleTOC({
 	const activeId = useScrollSpy(ids, offset);
 
 	return (
-		<div className="bg-[#d6e8ff] rounded-md p-4">
-			<h2 className="font-bold border-b border-gray-300 pb-2 mb-2">目次</h2>
-			<ul className="space-y-1">
+		<div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+			<h2 className="font-bold text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-600 pb-2 mb-3">
+				目次
+			</h2>
+			<ul className="space-y-2">
 				{tableOfContents.map((item) => {
 					const isActive = item.id === activeId;
 					return (
@@ -105,11 +115,11 @@ function SimpleTOC({
 							key={item.id}
 							className={`${item.level > 2 ? "pl-4" : ""} ${
 								isActive
-									? "text-blue-600 font-semibold"
-									: "text-gray-700 hover:text-blue-600"
+									? "text-blue-600 dark:text-blue-400 font-semibold"
+									: "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
 							}`}
 						>
-							<a href={`#${item.id}`} className="text-sm hover:underline">
+							<a href={`#${item.id}`} className="text-sm hover:underline block py-1">
 								{item.text}
 							</a>
 						</li>
