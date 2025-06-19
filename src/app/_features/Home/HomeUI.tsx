@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { BlogPostList } from "@/app/_features/Home/BlogPostList";
+import { About } from "@/app/_features/Home/About";
 
 export const HomeUI: React.FC = () => {
 	return (
 		<>
 			<section className="relative overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-r from-[#022B92] to-[#00AEFE] z-0" />
-
 				<div className="container mx-auto px-4 pt-32 relative z-10 pb-12">
 					<div className="flex items-center max-w-5xl mx-auto">
 						<div className="flex-1 text-white">
@@ -35,6 +35,7 @@ export const HomeUI: React.FC = () => {
 					</div>
 				</div>
 			</section>
+			<About />
 			<BlogPostList />
 		</>
 	);
