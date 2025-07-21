@@ -1,10 +1,9 @@
-"use client";
-
 import type { BlogPost } from "@/app/_libs/microcms/blogs/types";
 import { renderToc } from "./renderToc";
 import { formatToDotDate } from "@utils/dataUtils";
-import { processMarkdownContent } from "@utils/richEditorUtils";
 import { TableOfContents } from "./TableOfContents";
+import "zenn-content-css";
+import markdownToHtml from "zenn-markdown-html";
 
 type BlogPostDetailUIProps = {
 	blogPost: BlogPost;
@@ -14,8 +13,8 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 	blogPost,
 }) => {
 	const post = blogPost;
-	const processedContent = processMarkdownContent(post.content);
-	const toc = renderToc(processedContent);
+	const html = markdownToHtml(blogPost.content);
+	const toc = renderToc(html);
 
 	return (
 		<div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
@@ -50,11 +49,11 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 					</div>
 
 					{/* Article Body */}
-					<article className="prose prose-lg dark:prose-invert max-w-none bg-white dark:bg-gray-800 rounded-lg p-6 pt-0 shadow-sm">
+					<article className="prose prose-lg dark:prose-invert max-w-none bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
 						<div
-							className="rich-editor-content"
+							className="znc"
 							// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-							dangerouslySetInnerHTML={{ __html: processedContent }}
+							dangerouslySetInnerHTML={{ __html: html }}
 						/>
 					</article>
 				</div>
