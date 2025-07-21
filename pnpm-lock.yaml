@@ -56,6 +56,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
+      zenn-content-css:
+        specifier: ^0.2.1
+        version: 0.2.1
       zenn-markdown-html:
         specifier: ^0.2.1
         version: 0.2.1(@types/markdown-it@14.1.2)
@@ -3246,6 +3249,9 @@ packages:
   yoctocolors-cjs@2.1.2:
     resolution: {integrity: sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==}
     engines: {node: '>=18'}
+
+  zenn-content-css@0.2.1:
+    resolution: {integrity: sha512-JmYjjXTJFIWDveaQrpL5MniutZrWwfH9A+RwSct19dhgqx5xuPxgWQgmMt4POp7BrpvylfX8NE8Bk5E7wEeXpw==}
 
   zenn-markdown-html@0.2.1:
     resolution: {integrity: sha512-d921YqPgYNi1p8rNSKmR1rGSxP2WzVF6Dqg28FPM/uGaVVCz8axeZ307BZ5SSs/d0agk7qXile5swWLwmx8Msg==}
@@ -6447,6 +6453,8 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   yoctocolors-cjs@2.1.2: {}
+
+  zenn-content-css@0.2.1: {}
 
   zenn-markdown-html@0.2.1(@types/markdown-it@14.1.2):
     dependencies:
