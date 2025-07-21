@@ -23,7 +23,10 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 				{/* 本文コンテナ：大画面時に右側に余白を追加 */}
 				<div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto w-full px-4 md:px-8 lg:px-10 lg:pr-80 py-8">
 					{/* Article Header */}
-					<div className="mb-8 bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
+					<div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm pb-0">
+						<h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-900 dark:text-white leading-tight">
+							{post.title}
+						</h1>
 						<div className="flex gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
 							<span className="flex items-center gap-1">
 								📅 {formatToDotDate(post.publishedAt)}
@@ -34,9 +37,6 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 								</span>
 							)}
 						</div>
-						<h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-900 dark:text-white leading-tight">
-							{post.title}
-						</h1>
 						<div className="flex gap-2 flex-wrap">
 							{post.tags.map((tag, index) => (
 								<span
@@ -50,7 +50,7 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 					</div>
 
 					{/* Article Body */}
-					<article className="prose prose-lg dark:prose-invert max-w-none bg-white dark:bg-gray-800 rounded-lg p-6 lg:p-8 shadow-sm">
+					<article className="prose prose-lg dark:prose-invert max-w-none bg-white dark:bg-gray-800 rounded-lg p-6 pt-0 shadow-sm">
 						<div
 							className="rich-editor-content"
 							// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
@@ -60,7 +60,7 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 				</div>
 
 				{/* Fixed TOC：画面スクロールに追従 */}
-				<aside className="hidden lg:block fixed top-28 right-4 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto">
+				<aside className="hidden lg:block fixed top-28 right-8 xl:right-12 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto">
 					<TableOfContents tableOfContents={toc} offset={-100} />
 				</aside>
 			</div>
