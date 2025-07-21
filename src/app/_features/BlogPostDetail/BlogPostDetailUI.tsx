@@ -3,6 +3,7 @@
 import type { BlogPost } from "@/app/_libs/microcms/blogs/types";
 import { renderToc } from "./renderToc";
 import { formatToDotDate } from "@utils/dataUtils";
+import { processMarkdownContent } from "@utils/richEditorUtils";
 import { TableOfContents } from "./TableOfContents";
 
 type BlogPostDetailUIProps = {
@@ -13,7 +14,8 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 	blogPost,
 }) => {
 	const post = blogPost;
-	const toc = renderToc(post.content);
+	const processedContent = processMarkdownContent(post.content);
+	const toc = renderToc(processedContent);
 
 	return (
 		<div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
@@ -48,9 +50,12 @@ export const BlogPostDetailUI: React.FC<BlogPostDetailUIProps> = ({
 					</div>
 
 					{/* Article Body */}
-					<article className="prose dark:prose-invert max-w-none bg-white dark:bg-gray-800 rounded-lg p-6 lg:p-8 shadow-sm">
-						{/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
-						<div dangerouslySetInnerHTML={{ __html: post.content }} />
+					<article className="prose prose-lg dark:prose-invert max-w-none bg-white dark:bg-gray-800 rounded-lg p-6 lg:p-8 shadow-sm">
+						<div
+							className="rich-editor-content"
+							// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+							dangerouslySetInnerHTML={{ __html: processedContent }}
+						/>
 					</article>
 				</div>
 
