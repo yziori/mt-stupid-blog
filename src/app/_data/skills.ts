@@ -1,0 +1,147 @@
+import type { Skill } from "./types";
+
+export const skills: Skill[] = [
+	// Frontend
+	{
+		id: "react",
+		name: "React",
+		category: "frontend",
+		level: 4,
+		yearsOfExperience: 3,
+		relatedProjectIds: ["mt-stupid-blog", "portfolio-feature"],
+	},
+	{
+		id: "nextjs",
+		name: "Next.js",
+		category: "frontend",
+		level: 4,
+		yearsOfExperience: 2,
+		relatedProjectIds: ["mt-stupid-blog", "portfolio-feature"],
+	},
+	{
+		id: "typescript",
+		name: "TypeScript",
+		category: "frontend",
+		level: 4,
+		yearsOfExperience: 3,
+		relatedProjectIds: ["mt-stupid-blog", "portfolio-feature"],
+	},
+	{
+		id: "tailwindcss",
+		name: "Tailwind CSS",
+		category: "frontend",
+		level: 4,
+		yearsOfExperience: 2,
+		relatedProjectIds: ["mt-stupid-blog", "portfolio-feature"],
+	},
+	{
+		id: "javascript",
+		name: "JavaScript",
+		category: "frontend",
+		level: 5,
+		yearsOfExperience: 5,
+		relatedProjectIds: ["mt-stupid-blog", "portfolio-feature"],
+	},
+	{
+		id: "html",
+		name: "HTML",
+		category: "frontend",
+		level: 5,
+		yearsOfExperience: 6,
+		relatedProjectIds: ["mt-stupid-blog", "portfolio-feature"],
+	},
+	{
+		id: "css",
+		name: "CSS",
+		category: "frontend",
+		level: 4,
+		yearsOfExperience: 6,
+		relatedProjectIds: ["mt-stupid-blog", "portfolio-feature"],
+	},
+
+	// Backend
+	{
+		id: "nodejs",
+		name: "Node.js",
+		category: "backend",
+		level: 3,
+		yearsOfExperience: 2,
+		relatedProjectIds: [],
+	},
+	{
+		id: "python",
+		name: "Python",
+		category: "backend",
+		level: 3,
+		yearsOfExperience: 3,
+		relatedProjectIds: [],
+	},
+
+	// Tools
+	{
+		id: "git",
+		name: "Git",
+		category: "tool",
+		level: 4,
+		yearsOfExperience: 4,
+		relatedProjectIds: ["mt-stupid-blog", "portfolio-feature"],
+	},
+	{
+		id: "vscode",
+		name: "Visual Studio Code",
+		category: "tool",
+		level: 5,
+		yearsOfExperience: 5,
+		relatedProjectIds: ["mt-stupid-blog", "portfolio-feature"],
+	},
+	{
+		id: "figma",
+		name: "Figma",
+		category: "tool",
+		level: 3,
+		yearsOfExperience: 2,
+		relatedProjectIds: [],
+	},
+	{
+		id: "storybook",
+		name: "Storybook",
+		category: "tool",
+		level: 3,
+		yearsOfExperience: 1,
+		relatedProjectIds: ["mt-stupid-blog"],
+	},
+	{
+		id: "biome",
+		name: "Biome",
+		category: "tool",
+		level: 3,
+		yearsOfExperience: 1,
+		relatedProjectIds: ["mt-stupid-blog"],
+	},
+	{
+		id: "vitest",
+		name: "Vitest",
+		category: "tool",
+		level: 3,
+		yearsOfExperience: 1,
+		relatedProjectIds: ["mt-stupid-blog"],
+	},
+
+	// Other
+	{
+		id: "microcms",
+		name: "microCMS",
+		category: "other",
+		level: 3,
+		yearsOfExperience: 1,
+		relatedProjectIds: ["mt-stupid-blog"],
+	},
+	{
+		id: "vercel",
+		name: "Vercel",
+		category: "other",
+		level: 3,
+		yearsOfExperience: 1,
+		relatedProjectIds: ["mt-stupid-blog"],
+	},
+];

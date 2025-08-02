@@ -39,8 +39,7 @@ export const HeaderUI: React.FC = () => {
 							</Link>
 							<Link
 								href="/portfolio"
-								className="text-gray-400 dark:text-gray-500 font-medium cursor-not-allowed"
-								aria-disabled="true"
+								className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium"
 							>
 								Portfolio
 							</Link>
