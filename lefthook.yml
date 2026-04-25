@@ -1,9 +1,9 @@
 pre-commit:
   parallel: true
   commands:
-    biome-check:
+    biome:
+      glob: "src/**/*.{ts,tsx,js,jsx}"
       run: pnpm biome:check
-    biome-format:
-      run: pnpm biome:format
-    markuplint:
-      run: pnpm lint:html
+    astro-check:
+      glob: "src/**/*.{astro,ts,tsx}"
+      run: pnpm astro check
