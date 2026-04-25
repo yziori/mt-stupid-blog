@@ -10,8 +10,10 @@
     "astro": "astro",
     "test": "vitest run",
     "test:watch": "vitest",
-    "biome:check": "biome check src",
-    "biome:format": "biome format src --write",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt src",
+    "format:check": "oxfmt --check src",
     "deploy": "pnpm build && wrangler deploy"
   },
   "dependencies": {
