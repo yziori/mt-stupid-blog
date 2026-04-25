@@ -1,5 +1,6 @@
 ---
 import BrandMark from "./BrandMark.astro";
+import ThemeToggle from "./ThemeToggle.tsx";
 import { getCollection } from "astro:content";
 import { visiblePosts } from "@/lib/posts";
 
@@ -10,35 +11,42 @@ const totalPosts = visiblePosts(allPosts).length;
 ---
 
 <nav class="top">
-  <a href="/" class="brand">
-    <BrandMark />
-    <div>
-      <div class="brand-name">Mt<span class="dot">.</span> Stupid</div>
-      <div class="brand-sub">— notes from the peak of my own confidence</div>
+  <div class="inner">
+    <a href="/" class="brand">
+      <BrandMark />
+      <div>
+        <div class="brand-name">Mt<span class="dot">.</span> Stupid</div>
+        <div class="brand-sub">— notes from the peak of my own confidence</div>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      <a href="/" class={current === "home" ? "current" : ""}>home</a>
+      <a href="/about/" class={current === "about" ? "current" : ""}>about</a>
+      <a href="/work/" class={current === "work" ? "current" : ""}>work</a>
+      <a href="/tags/" class={current === "tags" ? "current" : ""}>tags</a>
+      <ThemeToggle client:load />
     </div>
-  </a>
 
-  <div class="nav-links">
-    <a href="/" class={current === "home" ? "current" : ""}>home</a>
-    <a href="/about/" class={current === "about" ? "current" : ""}>about</a>
-    <a href="/work/" class={current === "work" ? "current" : ""}>work</a>
-    <a href="/tags/" class={current === "tags" ? "current" : ""}>tags</a>
-  </div>
-
-  <div class="altitude">
-    <span class="dot-live"></span>
-    <span>N5 · {totalPosts} POSTS · COYG</span>
+    <div class="altitude">
+      <span class="dot-live"></span>
+      <span>N5 · {totalPosts} POSTS · COYG</span>
+    </div>
   </div>
 </nav>
 
 <style>
   nav.top {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 28px var(--pad-x) 24px;
     border-bottom: 1.5px solid var(--ink);
-    position: relative;
   }
   :global(:root.dark) nav.top { border-bottom-color: #1f2d4a; }
+  .inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 28px var(--pad-x) 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative;
+  }
   .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; }
   .brand-name {
     font-family: "Fraunces", serif;
