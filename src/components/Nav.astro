@@ -1,0 +1,88 @@
+---
+import BrandMark from "./BrandMark.astro";
+import { getCollection } from "astro:content";
+import { visiblePosts } from "@/lib/posts";
+
+type Props = { current: "home" | "about" | "work" | "tags" };
+const { current } = Astro.props;
+const allPosts = await getCollection("blog");
+const totalPosts = visiblePosts(allPosts).length;
+---
+
+<nav class="top">
+  <a href="/" class="brand">
+    <BrandMark />
+    <div>
+      <div class="brand-name">Mt<span class="dot">.</span> Stupid</div>
+      <div class="brand-sub">— notes from the peak of my own confidence</div>
+    </div>
+  </a>
+
+  <div class="nav-links">
+    <a href="/" class={current === "home" ? "current" : ""}>home</a>
+    <a href="/about/" class={current === "about" ? "current" : ""}>about</a>
+    <a href="/work/" class={current === "work" ? "current" : ""}>work</a>
+    <a href="/tags/" class={current === "tags" ? "current" : ""}>tags</a>
+  </div>
+
+  <div class="altitude">
+    <span class="dot-live"></span>
+    <span>N5 · {totalPosts} POSTS · COYG</span>
+  </div>
+</nav>
+
+<style>
+  nav.top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px var(--pad-x) 24px;
+    border-bottom: 1.5px solid var(--ink);
+    position: relative;
+  }
+  :global(:root.dark) nav.top { border-bottom-color: #1f2d4a; }
+  .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; }
+  .brand-name {
+    font-family: "Fraunces", serif;
+    font-weight: 700; font-size: 32px; line-height: 1;
+    letter-spacing: -0.8px;
+  }
+  .brand-name .dot { color: var(--red); }
+  .brand-sub {
+    font-family: "Caveat", cursive;
+    font-size: 17px; line-height: 1;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  .nav-links { display: flex; gap: 26px; font-family: "JetBrains Mono", monospace; font-size: 12px; }
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 2px;
+    position: relative;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.current { color: var(--red); font-weight: 600; }
+  .nav-links a.current::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -4px;
+    height: 2px; background: var(--red);
+  }
+  .altitude {
+    position: absolute;
+    top: 28px; right: var(--pad-x);
+    transform: translateY(46px);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px; color: var(--ink-faint);
+    letter-spacing: 0.6px;
+    display: flex; gap: 8px; align-items: center;
+  }
+  .dot-live {
+    width: 6px; height: 6px; border-radius: 3px;
+    background: var(--red);
+    box-shadow: 0 0 8px rgba(239,1,7,.6);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 50% { opacity: .4; } }
+</style>
