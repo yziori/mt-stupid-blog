@@ -1,0 +1,84 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import { getCollection } from "astro:content";
+import { aggregateTags } from "@/lib/posts";
+
+const all = await getCollection("blog");
+const tags = aggregateTags(all);
+const total = tags.reduce((s, t) => s + t.count, 0);
+const top10 = tags.slice(0, 10);
+---
+
+<BaseLayout title="Tags — Mt. Stupid" description="タグ一覧" current="tags">
+  <section class="tags-hero">
+    <div>
+      <div class="kicker"><span class="bar"></span>TAGS</div>
+      <h1>Tags, <em>grouped</em>.</h1>
+      <p class="dek">記事を支える単語たち。クリックで該当記事一覧へ。</p>
+    </div>
+    <div class="summary">
+      <div class="big">{tags.length}</div>
+      <div class="row"><span>posts indexed</span><span class="v">{total}</span></div>
+      <div class="row"><span>unique tags</span><span class="v">{tags.length}</span></div>
+    </div>
+  </section>
+
+  <SectionHead kicker="TOP 10 OVERALL" />
+  <section class="tag-list-wrap">
+    <div class="tag-list">
+      {top10.map(({ tag, count }, i) => (
+        <a href={`/tags/${tag}/`} class={`tag-pill ${i < 3 ? "hot" : ""}`}>
+          #{tag}
+          <span class="tag-count">{count}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <SectionHead kicker="ALL TAGS" meta={`${tags.length} tags`} />
+  <section class="tag-list-wrap">
+    <div class="tag-list">
+      {tags.map(({ tag, count }) => (
+        <a href={`/tags/${tag}/`} class="tag-pill">
+          #{tag}
+          <span class="tag-count">{count}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tags-hero { padding: 52px var(--pad-x) 24px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; }
+  .tags-hero .kicker { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .tags-hero .kicker .bar { width: 24px; height: 1.5px; background: var(--red); }
+  .tags-hero h1 { font-family: "Fraunces", serif; font-weight: 700; font-size: 64px; line-height: 0.98; letter-spacing: -2px; margin: 0 0 14px; }
+  .tags-hero h1 em { color: var(--red); font-style: italic; font-weight: 600; }
+  .tags-hero .dek { font-family: "Fraunces", serif; font-size: 17px; line-height: 1.55; color: var(--ink-soft); margin: 0; max-width: 520px; }
+  .summary { border: 1.5px solid var(--ink); background: var(--paper-2); padding: 18px 22px; box-shadow: 3px 3px 0 rgba(30,20,10,.1); font-family: "JetBrains Mono", monospace; font-size: 11px; }
+  .summary .row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed var(--line); color: var(--ink-soft); }
+  .summary .row:last-child { border-bottom: none; }
+  .summary .row .v { color: var(--ink); font-weight: 500; }
+  .summary .big { font-family: "Fraunces", serif; font-size: 28px; font-weight: 700; color: var(--ink); line-height: 1; margin-bottom: 12px; }
+
+  .tag-list-wrap { padding: 0 var(--pad-x) 24px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag-pill {
+    display: inline-flex; align-items: baseline;
+    padding: 5px 4px 5px 11px;
+    border: 1px solid var(--ink);
+    border-radius: 18px;
+    text-decoration: none;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--ink);
+    background: var(--paper);
+    transition: all .15s;
+  }
+  .tag-pill:hover { background: var(--ink); color: var(--paper); }
+  .tag-pill.hot { border-color: var(--red); color: var(--red); }
+  .tag-pill.hot:hover { background: var(--red); color: var(--paper); }
+  .tag-count { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 18px; padding: 0 6px; margin-left: 8px; border-radius: 10px; background: var(--wash); font-size: 10px; font-weight: 600; color: var(--ink-soft); border: 1px solid var(--line); }
+  .tag-pill:hover .tag-count { background: rgba(255,255,255,.18); color: var(--paper); border-color: transparent; }
+</style>
