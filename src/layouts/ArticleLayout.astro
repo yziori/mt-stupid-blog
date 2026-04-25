@@ -1,0 +1,88 @@
+---
+import "@/styles/article.css";
+import type { MarkdownHeading } from "astro";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import TagPill from "@/components/TagPill.astro";
+import ArticleCover from "@/components/ArticleCover.astro";
+import TableOfContents from "@/components/TableOfContents.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import BlogCardRelated from "@/components/BlogCardRelated.astro";
+import { formatLongDate } from "@/lib/format";
+
+type Props = {
+  post: CollectionEntry<"blog">;
+  headings: MarkdownHeading[];
+  related: CollectionEntry<"blog">[];
+};
+const { post, headings, related } = Astro.props;
+const data = post.data;
+---
+
+<BaseLayout
+  title={`${data.title} — Mt. Stupid`}
+  description={data.description}
+  current="home"
+  ogImage={data.thumbnail?.src}
+>
+  <a href="/blog/" class="back-link">← back to index</a>
+
+  <header class="article-head">
+    <div class="article-tags">
+      {data.tags.map((t, i) => <TagPill tag={t} variant={i === data.tags.length - 1 ? "red" : "default"} />)}
+    </div>
+    <h1 class="article-title">{data.title}</h1>
+    <p class="article-dek">{data.description}</p>
+    <div class="article-meta">
+      <span class="avatar">I</span>
+      <span class="author">IORI</span>
+      <span>·</span>
+      <span>{formatLongDate(data.publishedAt)}</span>
+    </div>
+  </header>
+
+  <ArticleCover coverTitle={data.coverTitle} stamp={`v${data.publishedAt.getUTCFullYear()}`} />
+
+  <div class="article-layout">
+    <article class="article-body">
+      <slot />
+    </article>
+    <aside class="article-side">
+      <TableOfContents headings={headings} />
+    </aside>
+  </div>
+
+  {related.length > 0 && (
+    <section style="padding: 0 var(--pad-x) 60px;">
+      <SectionHead kicker="RELATED" meta={`${related.length} posts · by tag`} />
+      <div class="related-grid">
+        {related.map((p) => <BlogCardRelated post={p} />)}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<script>
+  import "@/scripts/toc";
+</script>
+
+<style>
+  .back-link { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-soft); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; padding: 0 var(--pad-x); margin: 36px 0 16px; display: inline-block; }
+  .back-link:hover { color: var(--red); }
+  .article-head { padding: 0 var(--pad-x); max-width: 920px; margin: 0 auto 36px; }
+  .article-tags { display: flex; gap: 6px; margin-bottom: 20px; }
+  .article-title { font-family: "Fraunces", serif; font-weight: 700; font-size: 64px; line-height: 0.98; letter-spacing: -2px; margin: 0 0 18px; }
+  .article-dek { font-family: "Fraunces", serif; font-size: 20px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 22px; max-width: 680px; }
+  .article-meta { display: flex; gap: 20px; align-items: center; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-faint); letter-spacing: 0.5px; padding-top: 18px; border-top: 1px dashed var(--line); }
+  .article-meta .avatar { width: 32px; height: 32px; border-radius: 16px; background: var(--wash); border: 1.5px solid var(--ink); display: inline-flex; align-items: center; justify-content: center; font-family: "Fraunces", serif; font-weight: 700; color: var(--ink); font-size: 13px; }
+  .article-meta .author { color: var(--ink); font-weight: 600; }
+  .article-layout { padding: 0 var(--pad-x) 60px; display: grid; grid-template-columns: 1fr 240px; gap: 56px; align-items: start; }
+  .article-side { position: sticky; top: 24px; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+  @media (max-width: 860px) {
+    .article-layout { grid-template-columns: 1fr; }
+    .article-side { position: static; }
+    .article-title { font-size: 42px; }
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>
