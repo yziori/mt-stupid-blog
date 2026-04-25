@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404 — Mt. Stupid" description="そのページは見つかりませんでした。" current="home">
+  <section class="not-found">
+    <div class="kicker"><span class="bar"></span>OFF-TRAIL</div>
+    <h1>404 / <em>off the map</em></h1>
+    <p>そのページは見つかりませんでした。地図はあるけど、目的地は無いみたいだ。</p>
+    <a href="/" class="back">← back to top</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found { padding: 80px var(--pad-x) 120px; }
+  .kicker { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .kicker .bar { width: 24px; height: 1.5px; background: var(--red); }
+  h1 { font-family: "Fraunces", serif; font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: -2px; margin: 0 0 18px; }
+  h1 em { color: var(--red); font-style: italic; }
+  p { font-family: "Fraunces", serif; font-size: 18px; color: var(--ink-soft); max-width: 540px; margin: 0 0 24px; line-height: 1.55; }
+  .back { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ink); text-decoration: none; padding: 8px 14px; border: 1px solid var(--ink); transition: all .15s; }
+  .back:hover { background: var(--ink); color: var(--paper); }
+</style>
