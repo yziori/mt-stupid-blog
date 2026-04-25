@@ -1,0 +1,6 @@
+---
+type Props = { tag: string; variant?: "default" | "red"; href?: string };
+const { tag, variant = "default", href = `/tags/${tag}/` } = Astro.props;
+---
+
+<a href={href} class={`pill ${variant === "red" ? "red" : ""}`}>#{tag}</a>
