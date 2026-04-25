@@ -1,55 +1,29 @@
 # CLAUDE.md
-必ず日本語で回答してください
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Development Commands
+必ず日本語で回答してください。
 
-### Core Development
-- `pnpm dev` - Start development server with Turbopack
-- `pnpm build` - Build production version
-- `pnpm start` - Start production server
+## Stack
+**Astro 5 SSG + React islands + Cloudflare Workers**。Next.js / Tailwind / shadcn/ui ではありません (パッケージ名から誤推測しがちなので明記)。
 
-### Code Quality & Linting  
-- `pnpm lint` - Run Next.js ESLint
-- `pnpm biome:check` - Run Biome linter on src/
-- `pnpm biome:format` - Format code with Biome (writes changes)
-- `pnpm lint:html` - Run Markuplint on JSX/TSX files
+## Commands
+- パッケージマネージャは **pnpm** 固定 (`npm` / `yarn` 不可)
+- 型/スキーマ検証は `pnpm astro check` が本命。`tsc` は使いません
+- ローカルでCloudflare配信を再現: `pnpm build && pnpm wrangler dev` (port 8787)
+- デプロイ: `pnpm deploy` (= `pnpm build && wrangler deploy`)
 
-### Storybook
-- `pnpm sb` - Start Storybook dev server on port 6006
-- `pnpm build-storybook` - Build Storybook for production
+それ以外のscript (`dev`/`build`/`test` 等) は `package.json` 参照。
 
-### Testing
-- `vitest` - Run unit tests (includes both unit and Storybook tests)
-- Tests are configured with workspaces: unit tests (*.test.ts/tsx) and Storybook tests
+## 規約
+- 記事ファイル名は `src/content/blog/YYYY-MM-DD-<slug>.md` (READMEで規定)
+- 記事一覧の絞込み・並び替え・集計は `src/lib/posts.ts` のヘルパー (`visiblePosts` / `sortedByPublished` / `aggregateTags` / `pickupPosts` / `relatedPosts`) を必ず通す。生配列を直接 `filter` / `sort` しない
+- frontmatter の追加・変更は `src/content/config.ts` の zod スキーマも更新する (両方更新しないと `astro check` で落ちる)
+- 新規ページは `BaseLayout` でラップし `current` propsを正しく渡す (Navのアクティブ表示に使う)
+- React コンポーネントを islands として置く場合は `client:*` ディレクティブ必須 (付け忘れると静的HTML化してイベントが死ぬ)
 
-## Architecture
+## スタイリング
+- **Tailwindは使わない**。`src/styles/theme.css` のCSS変数 + 各 `.astro` の scoped `<style>` のみ
+- ダークモードは `<html class="dark">` トグル + `localStorage.theme` (`ThemeToggle.tsx` が正本)
+- デザイン正本は `テックブログ作成/Mt Stupid *.html` (untracked / lint・型対象外 / 編集禁止)
 
-This is a Next.js 15 blog application built with TypeScript, using MicroCMS as the headless CMS.
-
-### Project Structure
-- Uses Next.js App Router with route groups: `(defaultRoot)/` for main pages
-- **Container/UI Pattern**: Features use Container components for data fetching and UI components for presentation
-- **Path Aliases**: `@components/*`, `@features/*`, `@libs/*`, `@utils/*` mapped to respective directories in `src/app/`
-
-### Key Directories
-- `src/app/_components/` - Reusable UI components with Storybook stories
-- `src/app/_features/` - Feature-specific components following Container/UI pattern
-- `src/app/_libs/` - External service integrations (MicroCMS client)
-- `src/app/_utils/` - Utility functions
-
-### MicroCMS Integration
-- Client configured in `src/app/_libs/microcms/index.ts`
-- Requires `MICROCMS_SERVICE_DOMAIN` and `MICROCMS_API_KEY` environment variables
-- Types defined in `src/app/_libs/microcms/blogs/types.ts` and `src/app/_libs/microcms/tags/types.ts`
-
-### Code Standards
-- **Biome** for linting and formatting (tab indentation, double quotes)
-- **Markuplint** for HTML/JSX validation
-- **Lefthook** git hooks run biome check/format and markuplint on pre-commit
-- **Storybook** for component documentation and testing
-
-### Styling
-- **Tailwind CSS** with custom configuration
-- **Radix UI** for accessible components
-- **shadcn/ui** component system (components.json configured)
+## Pre-commit
+Lefthookで `pnpm biome:check` と `pnpm astro check` が走る。`--no-verify` でスキップしないでください。

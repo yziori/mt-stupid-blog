@@ -1,0 +1,30 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogCardArchive from "@/components/BlogCardArchive.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import Pagination from "@/components/Pagination.astro";
+import { getCollection } from "astro:content";
+import { sortedByPublished, visiblePosts } from "@/lib/posts";
+
+const PAGE_SIZE = 10;
+const all = sortedByPublished(visiblePosts(await getCollection("blog")));
+const lastPage = Math.max(1, Math.ceil(all.length / PAGE_SIZE));
+const posts = all.slice(0, PAGE_SIZE);
+---
+
+<BaseLayout title="Blog — Mt. Stupid" description="記事一覧" current="home">
+  <SectionHead kicker="ALL POSTS" meta={`${all.length} posts`} />
+  <section style="padding: 0 var(--pad-x);">
+    <div class="arch-list">
+      {posts.map((p) => <BlogCardArchive post={p} />)}
+    </div>
+  </section>
+  <Pagination currentPage={1} lastPage={lastPage} basePath="/blog" />
+</BaseLayout>
+
+<style>
+  .arch-list {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

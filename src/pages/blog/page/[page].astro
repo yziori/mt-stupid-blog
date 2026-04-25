@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogCardArchive from "@/components/BlogCardArchive.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import Pagination from "@/components/Pagination.astro";
+import { getCollection } from "astro:content";
+import { sortedByPublished, visiblePosts } from "@/lib/posts";
+
+const PAGE_SIZE = 10;
+
+export async function getStaticPaths() {
+  const all = sortedByPublished(visiblePosts(await getCollection("blog")));
+  const lastPage = Math.max(1, Math.ceil(all.length / 10));
+  // 1ページ目は /blog/ で出すので、2ページ目以降のみ生成
+  return Array.from({ length: lastPage - 1 }, (_, i) => i + 2).map((page) => ({
+    params: { page: String(page) },
+    props: { page, lastPage, all },
+  }));
+}
+
+const { page, lastPage, all } = Astro.props as {
+  page: number;
+  lastPage: number;
+  all: Awaited<ReturnType<typeof getCollection<"blog">>>;
+};
+const posts = all.slice((page - 1) * 10, page * 10);
+---
+
+<BaseLayout title={`Blog · page ${page} — Mt. Stupid`} description="記事一覧" current="home">
+  <SectionHead kicker="ALL POSTS" meta={`page ${page} / ${lastPage}`} />
+  <section style="padding: 0 var(--pad-x);">
+    <div class="arch-list">
+      {posts.map((p) => <BlogCardArchive post={p} />)}
+    </div>
+  </section>
+  <Pagination currentPage={page} lastPage={lastPage} basePath="/blog" />
+</BaseLayout>
+
+<style>
+  .arch-list {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

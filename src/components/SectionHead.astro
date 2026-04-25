@@ -1,0 +1,10 @@
+---
+type Props = { kicker: string; meta?: string };
+const { kicker, meta } = Astro.props;
+---
+
+<div class="section-head">
+	<div class="section-kicker"><span class="bar"></span>{kicker}</div>
+	<div class="rule"></div>
+	{meta && <div class="meta">{meta}</div>}
+</div>

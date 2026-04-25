@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatLongDate } from "@/lib/format";
+type Props = { post: CollectionEntry<"blog"> };
+const { post } = Astro.props;
+---
+
+<a class="rel-card" href={`/blog/${post.slug}/`}>
+	<div class="rel-date">{formatLongDate(post.data.publishedAt)}</div>
+	<div class="rel-title">{post.data.title}</div>
+	<div class="rel-sub">{post.data.description}</div>
+	<div class="rel-tag">{post.data.tags.slice(0, 1).map((t) => `#${t}`).join("")}</div>
+</a>
+
+<style>
+	.rel-card {
+		border: 1.5px solid var(--ink);
+		background: var(--paper);
+		padding: 18px 20px;
+		text-decoration: none;
+		color: var(--ink);
+		display: flex;
+		flex-direction: column;
+		transition: transform 0.2s, box-shadow 0.2s;
+	}
+	.rel-card:hover {
+		transform: translate(-2px, -2px);
+		box-shadow: 4px 4px 0 rgba(30, 20, 10, 0.12);
+	}
+	.rel-date {
+		font-family: "JetBrains Mono", monospace;
+		font-size: 10px;
+		color: var(--blue);
+		margin-bottom: 8px;
+		letter-spacing: 0.5px;
+	}
+	.rel-title {
+		font-family: "Fraunces", serif;
+		font-weight: 600;
+		font-size: 17px;
+		line-height: 1.25;
+		margin-bottom: 6px;
+	}
+	.rel-sub {
+		font-size: 12px;
+		color: var(--ink-soft);
+		line-height: 1.45;
+		flex: 1;
+	}
+	.rel-tag {
+		font-family: "JetBrains Mono", monospace;
+		font-size: 9px;
+		color: var(--ink-faint);
+		margin-top: 10px;
+		letter-spacing: 0.5px;
+	}
+</style>

@@ -1,0 +1,110 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import { skills, experience, contact } from "@/content/portfolio";
+
+const topSkills = [...skills].sort((a, b) => b.level - a.level).slice(0, 8);
+const recent = [...experience].slice(0, 3);
+---
+
+<BaseLayout
+	title="About — Mt. Stupid"
+	description="IORI のプロフィールと活動。"
+	current="about"
+>
+	<section class="about-hero">
+		<div>
+			<div class="intro-kicker"><span class="bar"></span>ABOUT</div>
+			<h1>Hi, I'm <em>IORI</em>.<br />Still climbing.</h1>
+			<p class="dek">
+				コードを書いて、<strong>たまにそれを文章にする</strong>人。
+				いま登っているのは Dunning-Kruger の最初の山、<strong>Mt. Stupid</strong>。
+				分かった気でいる方がモチベーションが続く、というだけのこと。
+			</p>
+			<div class="peak-stamp"><span class="dot"></span>currently · climbing</div>
+		</div>
+		<div class="portrait-card">
+			<div class="portrait-img"></div>
+			<div class="portrait-caption"><span class="arrow">→</span> me, mostly debugging</div>
+			<div class="portrait-small">
+				<span>est. 2020</span>
+				<span>v3</span>
+			</div>
+		</div>
+	</section>
+
+	<SectionHead kicker="WHAT I REACH FOR" meta={`${topSkills.length} of ${skills.length}`} />
+	<section class="grid-skills">
+		{topSkills.map((s) => (
+			<div class="skill-card">
+				<div class="skill-name">{s.name}</div>
+				<div class="skill-meta">
+					<span>{s.category}</span>
+					<span>· {s.yearsOfExperience}y</span>
+				</div>
+			</div>
+		))}
+	</section>
+
+	<SectionHead kicker="RECENT WORK" meta={`${recent.length} of ${experience.length}`} />
+	<section class="exp-list">
+		{recent.map((e) => (
+			<article class="exp-card">
+				<div class="exp-period">{e.period}</div>
+				<div>
+					<h3 class="exp-title">{e.position} · {e.company}</h3>
+					<p class="exp-desc">{e.description}</p>
+					<div class="exp-tech">{e.technologies.join(" · ")}</div>
+				</div>
+			</article>
+		))}
+	</section>
+
+	<SectionHead kicker="PLACES I SHOW UP" />
+	<section class="links-block">
+		{contact.socialLinks.github && <a class="big-link" href={contact.socialLinks.github} target="_blank" rel="noreferrer">github →</a>}
+		{contact.socialLinks.twitter && <a class="big-link" href={contact.socialLinks.twitter} target="_blank" rel="noreferrer">x / twitter →</a>}
+		{contact.socialLinks.qiita && <a class="big-link" href={contact.socialLinks.qiita} target="_blank" rel="noreferrer">qiita →</a>}
+		{contact.socialLinks.linkedin && <a class="big-link" href={contact.socialLinks.linkedin} target="_blank" rel="noreferrer">linkedin →</a>}
+	</section>
+</BaseLayout>
+
+<style>
+	.about-hero { padding: 60px var(--pad-x) 20px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+	.intro-kicker { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+	.intro-kicker .bar { width: 24px; height: 1.5px; background: var(--red); }
+	.about-hero h1 { font-family: "Fraunces", serif; font-weight: 700; font-size: 68px; line-height: 0.96; letter-spacing: -2.5px; margin: 0 0 20px; }
+	.about-hero h1 em { color: var(--red); font-style: italic; font-weight: 600; }
+	.dek { font-family: "Fraunces", serif; font-size: 19px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 24px; max-width: 480px; }
+	.dek strong { color: var(--ink); font-weight: 600; }
+	.peak-stamp { display: inline-flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; padding: 6px 12px; border: 1px dashed var(--red); color: var(--red); letter-spacing: 0.5px; }
+	.peak-stamp .dot { width: 6px; height: 6px; border-radius: 3px; background: var(--red); }
+	.portrait-card { position: relative; background: var(--paper); border: 1.5px solid var(--ink); box-shadow: 8px 8px 0 rgba(30,20,10,.12); padding: 20px; max-width: 380px; justify-self: end; transform: rotate(1.2deg); }
+	.portrait-img { aspect-ratio: 4 / 5; background: radial-gradient(circle at 50% 38%, rgba(30,20,10,.08), transparent 50%), linear-gradient(135deg, var(--wash), var(--paper-2)); border: 1px solid var(--ink); }
+	.portrait-caption { font-family: "Caveat", cursive; font-size: 20px; color: var(--ink); text-align: center; margin-top: 12px; transform: rotate(-0.8deg); }
+	.portrait-caption .arrow { color: var(--red); }
+	.portrait-small { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--ink-faint); margin-top: 8px; border-top: 1px dashed var(--line); padding-top: 8px; }
+
+	.grid-skills { padding: 0 var(--pad-x) 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+	.skill-card { border: 1.5px solid var(--ink); background: var(--paper); padding: 16px 18px; box-shadow: 3px 3px 0 rgba(30,20,10,.06); }
+	.skill-name { font-family: "Fraunces", serif; font-weight: 700; font-size: 18px; }
+	.skill-meta { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--ink-soft); margin-top: 4px; }
+
+	.exp-list { padding: 0 var(--pad-x) 40px; display: flex; flex-direction: column; gap: 16px; }
+	.exp-card { display: grid; grid-template-columns: 160px 1fr; gap: 24px; padding: 20px 0; border-top: 1px dashed var(--line); }
+	.exp-card:first-of-type { border-top: 1.5px solid var(--ink); padding-top: 24px; }
+	.exp-period { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--blue); letter-spacing: 0.5px; }
+	.exp-title { font-family: "Fraunces", serif; font-weight: 700; font-size: 22px; margin: 0 0 6px; }
+	.exp-desc { color: var(--ink-soft); margin: 0 0 8px; line-height: 1.55; }
+	.exp-tech { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-faint); }
+
+	.links-block { padding: 0 var(--pad-x) 60px; display: flex; flex-direction: column; gap: 8px; }
+	.big-link { font-family: "Fraunces", serif; font-style: italic; font-size: 26px; color: var(--ink); text-decoration: none; padding: 8px 0; border-bottom: 1px dashed var(--line); transition: color .15s, padding .2s; }
+	.big-link:hover { color: var(--red); padding-left: 8px; }
+
+	@media (max-width: 860px) {
+		.about-hero { grid-template-columns: 1fr; }
+		.grid-skills { grid-template-columns: repeat(2, 1fr); }
+		.exp-card { grid-template-columns: 1fr; }
+	}
+</style>

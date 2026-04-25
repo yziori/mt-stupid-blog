@@ -1,0 +1,110 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import { projects, skills } from "@/content/portfolio";
+
+const total = projects.length;
+const active = projects.filter((p) => p.status === "in-progress").length;
+const completed = projects.filter((p) => p.status === "completed").length;
+const techCount = new Set(projects.flatMap((p) => p.technologies)).size;
+
+const categoryCounts = projects.reduce<Record<string, number>>((acc, p) => {
+	acc[p.category] = (acc[p.category] ?? 0) + 1;
+	return acc;
+}, {});
+
+const visibleProjects = [...projects].sort((a, b) => (a.startDate < b.startDate ? 1 : -1));
+---
+
+<BaseLayout
+	title="Work — Mt. Stupid"
+	description="作ったものたち。"
+	current="work"
+>
+	<section class="work-hero">
+		<div class="kicker-row"><span class="bar"></span>WORK</div>
+		<h1>Things I've <em>built</em></h1>
+		<p class="dek">完成したもの、現在進行形のもの。コードと判断の置き場所。</p>
+	</section>
+
+	<section class="work-stats">
+		<div class="stat"><div class="num">{total}</div><div class="label">projects</div></div>
+		<div class="stat"><div class="num">{active}</div><div class="label">active</div></div>
+		<div class="stat"><div class="num">{completed}</div><div class="label">shipped</div></div>
+		<div class="stat"><div class="num">{techCount}<span class="sfx">techs</span></div><div class="label">stack diversity</div></div>
+	</section>
+
+	<section class="work-filter">
+		<span class="group-label">CATEGORY</span>
+		{Object.entries(categoryCounts).map(([cat, n]) => (
+			<span class="chip">{cat} <span class="count">({n})</span></span>
+		))}
+	</section>
+
+	<SectionHead kicker="ALL PROJECTS" meta={`${total} listed`} />
+	<section class="work-list">
+		{visibleProjects.map((p) => (
+			<article class="project">
+				<div class="proj-head">
+					<h3 class="proj-title">{p.title}</h3>
+					<div class="proj-period">{p.startDate}{p.endDate ? ` — ${p.endDate}` : " — present"}</div>
+				</div>
+				<div class="proj-desc">
+					<p>{p.longDescription || p.description}</p>
+					<div class="proj-tech">
+						{p.technologies.map((t) => <span class="tech-pill">{t}</span>)}
+					</div>
+				</div>
+				<div class="proj-meta">
+					<div class="aside-label">STATUS</div>
+					<div class={`status status-${p.status}`}>{p.status}</div>
+					{p.demoUrl && <a class="proj-link" href={p.demoUrl} target="_blank" rel="noreferrer">demo →</a>}
+					{p.githubUrl && <a class="proj-link" href={p.githubUrl} target="_blank" rel="noreferrer">github →</a>}
+				</div>
+			</article>
+		))}
+	</section>
+</BaseLayout>
+
+<style>
+	.work-hero { padding: 52px var(--pad-x) 24px; }
+	.kicker-row { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--red); letter-spacing: 2px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+	.kicker-row .bar { width: 24px; height: 1.5px; background: var(--red); }
+	.work-hero h1 { font-family: "Fraunces", serif; font-weight: 700; font-size: 64px; line-height: 0.98; letter-spacing: -2px; margin: 0 0 18px; }
+	.work-hero h1 em { color: var(--red); font-style: italic; font-weight: 600; }
+	.work-hero .dek { font-family: "Fraunces", serif; font-size: 18px; line-height: 1.55; color: var(--ink-soft); max-width: 560px; margin: 0; }
+
+	.work-stats { display: grid; grid-template-columns: repeat(4, 1fr); padding: 0 var(--pad-x); margin-top: 36px; border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); }
+	.stat { padding: 18px 20px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; }
+	.stat:last-child { border-right: none; }
+	.stat .num { font-family: "Fraunces", serif; font-weight: 700; font-size: 36px; line-height: 1; color: var(--ink); }
+	.stat .num .sfx { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ink-faint); margin-left: 4px; font-weight: 400; }
+	.stat .label { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--ink-soft); letter-spacing: 1.5px; text-transform: uppercase; }
+
+	.work-filter { padding: 24px var(--pad-x) 4px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+	.group-label { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--ink-faint); letter-spacing: 1.5px; }
+	.chip { font-family: "JetBrains Mono", monospace; font-size: 11px; padding: 5px 12px; border-radius: 16px; border: 1px solid var(--ink-soft); color: var(--ink-soft); background: transparent; }
+	.chip .count { opacity: .6; margin-left: 4px; font-size: 9px; }
+
+	.work-list { padding: 16px var(--pad-x) 40px; display: flex; flex-direction: column; gap: 24px; }
+	.project { border: 1.5px solid var(--ink); background: var(--paper); box-shadow: 4px 4px 0 rgba(30,20,10,.1); display: grid; grid-template-columns: 1.5fr 2fr 1fr; gap: 24px; padding: 24px 28px; }
+	.proj-head { display: flex; flex-direction: column; gap: 8px; }
+	.proj-title { font-family: "Fraunces", serif; font-size: 22px; font-weight: 700; margin: 0; }
+	.proj-period { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--blue); }
+	.proj-desc p { margin: 0 0 12px; color: var(--ink-soft); line-height: 1.55; }
+	.proj-tech { display: flex; flex-wrap: wrap; gap: 4px; }
+	.tech-pill { font-family: "JetBrains Mono", monospace; font-size: 9px; padding: 3px 8px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink-soft); }
+	.proj-meta { display: flex; flex-direction: column; gap: 8px; }
+	.aside-label { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--ink-faint); letter-spacing: 1.5px; }
+	.status { font-family: "JetBrains Mono", monospace; font-size: 11px; padding: 4px 10px; border: 1px solid var(--ink); display: inline-block; width: fit-content; text-transform: uppercase; }
+	.status-in-progress { border-color: var(--red); color: var(--red); }
+	.status-completed { color: var(--ink); }
+	.status-planned { color: var(--ink-faint); border-style: dashed; }
+	.proj-link { font-family: "Fraunces", serif; font-style: italic; font-size: 14px; color: var(--red); text-decoration: none; }
+	.proj-link:hover { text-decoration: underline; }
+
+	@media (max-width: 860px) {
+		.project { grid-template-columns: 1fr; }
+		.work-stats { grid-template-columns: repeat(2, 1fr); }
+	}
+</style>

@@ -1,0 +1,70 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TagPill from "./TagPill.astro";
+import { formatShortDate } from "@/lib/format";
+type Props = { post: CollectionEntry<"blog"> };
+const { post } = Astro.props;
+---
+
+<a class="arch-row" href={`/blog/${post.slug}/`}>
+	<div class="arch-date">{formatShortDate(post.data.publishedAt)}</div>
+	<div class="arch-main">
+		<div class="arch-title">{post.data.title}</div>
+		<div class="arch-sub">{post.data.description}</div>
+	</div>
+	<div class="arch-tags">{post.data.tags.slice(0, 2).map((t) => <TagPill tag={t} />)}</div>
+</a>
+
+<style>
+	.arch-row {
+		display: grid;
+		grid-template-columns: 72px 1fr auto;
+		gap: 20px;
+		padding: 18px 0;
+		border-top: 1px solid var(--line);
+		align-items: baseline;
+		cursor: pointer;
+		transition: padding 0.2s;
+		text-decoration: none;
+		color: inherit;
+	}
+	.arch-row:hover {
+		padding-left: 10px;
+	}
+	.arch-row:last-of-type {
+		border-bottom: 1px solid var(--line);
+	}
+	.arch-date {
+		font-family: "JetBrains Mono", monospace;
+		font-size: 11px;
+		color: var(--blue);
+		font-weight: 500;
+	}
+	.arch-main {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+	.arch-title {
+		font-family: "Fraunces", serif;
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 1.25;
+		color: var(--ink);
+	}
+	.arch-sub {
+		font-family: "Inter", sans-serif;
+		font-size: 13px;
+		color: var(--ink-soft);
+		line-height: 1.45;
+	}
+	.arch-tags {
+		display: flex;
+		gap: 4px;
+		align-items: center;
+	}
+	.arch-tags :global(.pill) {
+		font-size: 9px;
+		padding: 2px 7px;
+	}
+</style>

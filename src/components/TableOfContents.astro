@@ -1,0 +1,37 @@
+---
+import type { MarkdownHeading } from "astro";
+type Props = { headings: MarkdownHeading[] };
+const { headings } = Astro.props;
+const h2s = headings.filter((h) => h.depth === 2);
+---
+
+<div class="side-block">
+	<div class="side-label"><span class="bar"></span>CONTENTS</div>
+	<nav class="toc">
+		{h2s.map((h, i) => (
+			<a href={`#${h.slug}`} class={i === 0 ? "active" : ""}>
+				<span class="toc-num">{String(i + 1).padStart(2, "0")}</span>{h.text}
+			</a>
+		))}
+	</nav>
+	<div class="progress-block">
+		<span>PROGRESS</span>
+		<span id="progress-pct">0%</span>
+	</div>
+	<div class="progress-bar"><div class="fill" id="progress-fill"></div></div>
+</div>
+
+<style>
+	.side-block { margin-bottom: 28px; }
+	.side-label { font-size: 10px; letter-spacing: 2px; color: var(--ink-faint); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+	.side-label .bar { width: 14px; height: 1px; background: var(--red); }
+	.toc { border-left: 1.5px solid var(--ink); margin-left: -6px; }
+	.toc a { display: block; padding: 6px 0 6px 14px; margin-left: -1.5px; color: var(--ink-soft); text-decoration: none; border-left: 2px solid transparent; line-height: 1.3; transition: color .15s, border-color .15s, padding .2s; font-family: "JetBrains Mono", monospace; font-size: 11px; }
+	.toc a:hover { color: var(--ink); padding-left: 18px; }
+	.toc a.active { color: var(--red); font-weight: 600; border-left-color: var(--red); }
+	.toc .toc-num { color: var(--ink-faint); margin-right: 6px; font-weight: 400; }
+	.toc a.active .toc-num { color: var(--red); }
+	.progress-block { display: flex; justify-content: space-between; align-items: baseline; font-size: 10px; color: var(--ink-faint); margin-top: 8px; font-family: "JetBrains Mono", monospace; }
+	.progress-bar { height: 2px; background: var(--line); margin-top: 6px; position: relative; overflow: hidden; }
+	.progress-bar :global(.fill) { position: absolute; left: 0; top: 0; bottom: 0; background: var(--red); width: 0%; transition: width .1s; }
+</style>
