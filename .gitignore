@@ -44,3 +44,11 @@ next-env.d.ts
 
 # design references (kept locally for reference, not committed)
 /テックブログ作成/
+
+# Astro
+dist/
+.astro/
+
+# Wrangler
+.wrangler/
+.dev.vars
