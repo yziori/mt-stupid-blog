@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "plugins": [
+    "typescript",
+    "react",
+    "import",
+    "unicorn",
+    "jsx-a11y"
+  ],
+  "rules": {
+    "typescript/triple-slash-reference": "off",
+    "react/react-in-jsx-scope": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "19"
+    }
+  },
+  "ignorePatterns": [
+    "dist",
+    ".astro",
+    "node_modules",
+    "テックブログ作成",
+    "**/*.html",
+    "__snapshots__"
+  ]
+}
