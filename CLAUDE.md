@@ -26,4 +26,4 @@
 - デザイン正本は `テックブログ作成/Mt Stupid *.html` (untracked / lint・型対象外 / 編集禁止)
 
 ## Pre-commit
-Lefthookで `pnpm biome:check` と `pnpm astro check` が走る。`--no-verify` でスキップしないでください。
+Lefthookで `pnpm lint`（Oxlint）と `pnpm format:check`（Oxfmt）と `pnpm astro check` が走る。`--no-verify` でスキップしないでください。
