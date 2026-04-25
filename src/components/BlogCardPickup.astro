@@ -1,0 +1,92 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import { formatYearMonth } from "@/lib/format";
+type Props = { post: CollectionEntry<"blog"> };
+const { post } = Astro.props;
+const badgeLabel = post.data.pickupBadge === "editor" ? "editor's" : "★ top";
+const badgeClass = post.data.pickupBadge === "editor" ? "editor" : "";
+---
+
+<a class="pickup" href={`/blog/${post.slug}/`}>
+	<div class="pickup-img">
+		<span class={`pickup-badge ${badgeClass}`}>{badgeLabel}</span>
+		{post.data.thumbnail && <Image src={post.data.thumbnail} alt="" class="cov-img" />}
+	</div>
+	<div class="pickup-body">
+		<h3 class="pickup-title">{post.data.title}</h3>
+		<div class="pickup-meta">
+			<span>{formatYearMonth(post.data.publishedAt)}</span>
+		</div>
+	</div>
+</a>
+
+<style>
+	.pickup {
+		position: relative;
+		background: var(--paper);
+		border: 1.5px solid var(--ink);
+		box-shadow: 3px 3px 0 rgba(30, 20, 10, 0.1);
+		transition: transform 0.2s, box-shadow 0.2s;
+		cursor: pointer;
+		display: flex;
+		flex-direction: column;
+		text-decoration: none;
+		color: inherit;
+	}
+	.pickup:hover {
+		transform: translate(-2px, -2px);
+		box-shadow: 5px 5px 0 rgba(30, 20, 10, 0.12);
+	}
+	.pickup-img {
+		aspect-ratio: 1 / 1;
+		position: relative;
+		border-bottom: 1.5px solid var(--ink);
+		overflow: hidden;
+		background: linear-gradient(135deg, #1e2b3a, #3a4a5c);
+	}
+	.cov-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.pickup-badge {
+		position: absolute;
+		top: 8px;
+		left: 8px;
+		background: var(--red);
+		color: var(--paper);
+		font-family: "JetBrains Mono", monospace;
+		font-size: 9px;
+		letter-spacing: 0.8px;
+		padding: 3px 7px;
+		border: 1px solid var(--ink);
+		text-transform: uppercase;
+		z-index: 1;
+	}
+	.pickup-badge.editor {
+		background: var(--ink);
+	}
+	.pickup-body {
+		padding: 12px 14px 14px;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	.pickup-title {
+		font-family: "Fraunces", serif;
+		font-weight: 600;
+		font-size: 16px;
+		line-height: 1.2;
+		margin: 0 0 8px;
+	}
+	.pickup-meta {
+		margin-top: auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		font-family: "JetBrains Mono", monospace;
+		font-size: 10px;
+		color: var(--ink-soft);
+	}
+</style>
