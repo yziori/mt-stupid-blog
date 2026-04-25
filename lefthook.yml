@@ -2,7 +2,7 @@ pre-commit:
   parallel: true
   commands:
     oxlint:
-      glob: "src/**/*.{ts,tsx,js,jsx}"
+      glob: "src/**/*.{ts,tsx,js,jsx,astro}"
       run: pnpm oxlint {staged_files}
     oxfmt:
       glob: "src/**/*.{ts,tsx,js,jsx}"
