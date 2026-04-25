@@ -26,12 +26,12 @@ coverTitle: "the third rewrite"
 
 ```ts
 // astro.config.mjs
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
+import { defineConfig } from "astro/config";
+import react from "@astrojs/react";
 
 export default defineConfig({
-  site: 'https://mt-stupid.dev',
-  integrations: [react()],
+	site: "https://mt-stupid.dev",
+	integrations: [react()],
 });
 ```
 

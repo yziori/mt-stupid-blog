@@ -4,9 +4,7 @@ import type { APIContext } from "astro";
 import { sortedByPublished, visiblePosts } from "@/lib/posts";
 
 export async function GET(context: APIContext) {
-	const posts = sortedByPublished(
-		visiblePosts(await getCollection("blog")),
-	);
+	const posts = sortedByPublished(visiblePosts(await getCollection("blog")));
 	return rss({
 		title: "Mt. Stupid",
 		description: "notes from the peak of my own confidence",

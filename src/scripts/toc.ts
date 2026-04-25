@@ -19,7 +19,8 @@ export {};
 
 		if (progFill && progPct) {
 			const docH = document.documentElement.scrollHeight - window.innerHeight;
-			const pct = docH > 0 ? Math.min(100, Math.max(0, Math.round((window.scrollY / docH) * 100))) : 0;
+			const pct =
+				docH > 0 ? Math.min(100, Math.max(0, Math.round((window.scrollY / docH) * 100))) : 0;
 			progFill.style.width = pct + "%";
 			progPct.textContent = pct + "%";
 		}
