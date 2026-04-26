@@ -9,62 +9,62 @@ importers:
   .:
     dependencies:
       '@astrojs/react':
-        specifier: ^4.2.0
+        specifier: 4.4.2
         version: 4.4.2(@types/node@24.12.2)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(yaml@2.8.3)
       '@astrojs/rss':
-        specifier: ^4.0.10
+        specifier: 4.0.18
         version: 4.0.18
       '@astrojs/sitemap':
-        specifier: ^3.2.1
+        specifier: 3.7.2
         version: 3.7.2
       astro:
-        specifier: ^5.0.0
+        specifier: 5.18.1
         version: 5.18.1(@types/node@24.12.2)(rollup@4.60.2)(typescript@5.9.3)(yaml@2.8.3)
       react:
-        specifier: ^19.0.0
+        specifier: 19.2.5
         version: 19.2.5
       react-dom:
-        specifier: ^19.0.0
+        specifier: 19.2.5
         version: 19.2.5(react@19.2.5)
       rehype-autolink-headings:
-        specifier: ^7.1.0
+        specifier: 7.1.0
         version: 7.1.0
       rehype-slug:
-        specifier: ^6.0.0
+        specifier: 6.0.0
         version: 6.0.0
     devDependencies:
       '@astrojs/check':
-        specifier: ^0.9.8
+        specifier: 0.9.8
         version: 0.9.8(prettier@3.8.3)(typescript@5.9.3)
       '@types/react':
-        specifier: ^19.0.0
+        specifier: 19.2.14
         version: 19.2.14
       '@types/react-dom':
-        specifier: ^19.0.0
+        specifier: 19.2.3
         version: 19.2.3(@types/react@19.2.14)
       astro-eslint-parser:
-        specifier: ^1.4.0
+        specifier: 1.4.0
         version: 1.4.0
       eslint-plugin-astro:
-        specifier: ^1.7.0
+        specifier: 1.7.0
         version: 1.7.0(eslint@10.2.1)
       lefthook:
-        specifier: ^1.11.3
+        specifier: 1.13.6
         version: 1.13.6
       oxfmt:
-        specifier: ^0.46.0
+        specifier: 0.46.0
         version: 0.46.0
       oxlint:
-        specifier: ^1.61.0
+        specifier: 1.61.0
         version: 1.61.0
       typescript:
-        specifier: ^5.6.0
+        specifier: 5.9.3
         version: 5.9.3
       vitest:
-        specifier: ^3.0.8
+        specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.13)(@types/node@24.12.2)(yaml@2.8.3)
       wrangler:
-        specifier: ^4.0.0
+        specifier: 4.85.0
         version: 4.85.0
 
 packages:
