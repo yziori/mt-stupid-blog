@@ -5,7 +5,7 @@ type Props = { post: CollectionEntry<"blog"> };
 const { post } = Astro.props;
 ---
 
-<a class="rel-card" href={`/blog/${post.slug}/`}>
+<a class="rel-card" href={`/blog/${post.id}/`}>
 	<div class="rel-date">{formatLongDate(post.data.publishedAt)}</div>
 	<div class="rel-title">{post.data.title}</div>
 	<div class="rel-sub">{post.data.description}</div>

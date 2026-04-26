@@ -6,7 +6,7 @@ type Props = { post: CollectionEntry<"blog"> };
 const { post } = Astro.props;
 ---
 
-<a class="arch-row" href={`/blog/${post.slug}/`}>
+<a class="arch-row" href={`/blog/${post.id}/`}>
 	<div class="arch-date">{formatShortDate(post.data.publishedAt)}</div>
 	<div class="arch-main">
 		<div class="arch-title">{post.data.title}</div>

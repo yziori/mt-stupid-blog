@@ -7,7 +7,7 @@ type Frontmatter = {
 	draft?: boolean;
 };
 
-type Post = { slug: string; data: Frontmatter };
+type Post = { id: string; data: Frontmatter };
 
 export function visiblePosts<P extends Post>(posts: P[]): P[] {
 	return posts.filter((p) => !p.data.draft);
@@ -44,7 +44,7 @@ export function pickupPosts<P extends Post>(posts: P[], limit = 4): P[] {
 export function relatedPosts<P extends Post>(target: P, all: P[], limit = 3): P[] {
 	const tagSet = new Set(target.data.tags);
 	return visiblePosts(all)
-		.filter((p) => p.slug !== target.slug)
+		.filter((p) => p.id !== target.id)
 		.map((p) => ({
 			post: p,
 			shared: p.data.tags.filter((t) => tagSet.has(t)).length,
