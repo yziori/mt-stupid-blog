@@ -1,0 +1,46 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import BlogCardArchive from "@/components/BlogCardArchive.astro";
+import { getCollection } from "astro:content";
+import { aggregateTags, sortedByPublished, visiblePosts } from "@/lib/posts";
+
+export async function getStaticPaths() {
+  const all = await getCollection("blog");
+  const tags = aggregateTags(all);
+  return tags.map(({ tag }) => ({ params: { tag }, props: { tag } }));
+}
+
+const { tag } = Astro.props as { tag: string };
+const all = await getCollection("blog");
+const posts = sortedByPublished(visiblePosts(all)).filter((p) => p.data.tags.includes(tag));
+---
+
+<BaseLayout
+  title={`#${tag} — Mt. Stupid`}
+  description={`${tag} に関する記事 ${posts.length} 件`}
+  current="tags"
+>
+  <section class="tag-hero">
+    <a href="/tags/" class="back">← all tags</a>
+    <h1>#<em>{tag}</em></h1>
+    <div class="meta">{posts.length} posts</div>
+  </section>
+
+  <SectionHead kicker="POSTS" />
+  <section style="padding: 0 var(--pad-x) 40px;">
+    <div class="arch-list">
+      {posts.map((p) => <BlogCardArchive post={p} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tag-hero { padding: 52px var(--pad-x) 24px; }
+  .back { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-soft); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; }
+  .back:hover { color: var(--red); }
+  .tag-hero h1 { font-family: "Fraunces", serif; font-size: 64px; font-weight: 700; line-height: 1; letter-spacing: -2px; margin: 18px 0 8px; }
+  .tag-hero h1 em { color: var(--red); font-style: italic; }
+  .tag-hero .meta { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--ink-faint); letter-spacing: 1px; }
+  .arch-list { display: flex; flex-direction: column; }
+</style>

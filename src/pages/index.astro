@@ -1,0 +1,51 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogCardHero from "@/components/BlogCardHero.astro";
+import BlogCardPickup from "@/components/BlogCardPickup.astro";
+import BlogCardArchive from "@/components/BlogCardArchive.astro";
+import SectionHead from "@/components/SectionHead.astro";
+import { getCollection } from "astro:content";
+import { pickupPosts, sortedByPublished, visiblePosts } from "@/lib/posts";
+import { formatLongDate } from "@/lib/format";
+
+const all = sortedByPublished(visiblePosts(await getCollection("blog")));
+const hero = all[0];
+const pickups = pickupPosts(all, 4);
+const archive = all.slice(0, 6);
+const today = new Date();
+---
+
+<BaseLayout
+  title="Mt. Stupid — notes from the peak of my own confidence"
+  description="登りながら書く、技術と思考の手帳。"
+  current="home"
+>
+  <SectionHead kicker="LATEST" meta={formatLongDate(today)} />
+  {hero && <BlogCardHero post={hero} />}
+
+  <SectionHead kicker="★ PICKUPS" meta={`hand-picked · ${pickups.length} of ${all.length}`} />
+  <section class="pickups">
+    {pickups.map((p) => <BlogCardPickup post={p} />)}
+  </section>
+
+  <section class="archive">
+    <SectionHead kicker="ARCHIVE" meta="all posts · newest first" />
+    <div class="arch-list">
+      {archive.map((p) => <BlogCardArchive post={p} />)}
+    </div>
+    <a href="/blog/" class="more">all {all.length} posts</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .pickups { padding: 0 var(--pad-x); display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 8px; }
+  .archive { padding: 0 var(--pad-x) var(--gap-section); margin-top: var(--gap-section); }
+  .arch-list { display: flex; flex-direction: column; }
+  .more { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; font-family: "Fraunces", serif; font-style: italic; font-size: 16px; color: var(--ink); text-decoration: none; }
+  .more::after { content: ""; width: 60px; height: 1px; background: var(--ink); transition: width .25s; }
+  .more:hover::after { width: 100px; }
+
+  @media (max-width: 860px) {
+    .pickups { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+---
+<footer class="site">
+  <div class="inner">
+    <div>
+      <div>IORI · 2026</div>
+      <div class="built">built on Mt. Stupid · Astro · Cloudflare Workers</div>
+    </div>
+    <div class="quote">"Victory through harmony" — but mostly I just post about code.</div>
+    <div class="links">
+      <a href="https://github.com/yziori" target="_blank" rel="noreferrer">github</a>
+      <a href="/rss.xml">rss</a>
+      <a href="https://www.arsenal.com/" target="_blank" rel="noreferrer" class="coyg" title="Come On You Gunners">COYG</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer.site {
+    border-top: 1.5px solid var(--ink);
+    background: var(--paper-2);
+  }
+  :global(:root.dark) footer.site { border-top-color: #1f2d4a; }
+  .inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 32px var(--pad-x);
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: "JetBrains Mono", monospace; font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .built { margin-top: 4px; color: var(--ink-faint); }
+  .quote { font-family: "Caveat", cursive; font-size: 18px; color: var(--ink); max-width: 40%; }
+  .links { display: flex; gap: 16px; }
+  .links a { color: var(--ink-soft); text-decoration: none; }
+  .links a:hover { color: var(--red); }
+  .links a.coyg { color: var(--red); font-weight: 600; }
+</style>

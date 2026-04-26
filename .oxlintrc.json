@@ -1,0 +1,41 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "plugins": [
+    "typescript",
+    "react",
+    "import",
+    "unicorn",
+    "jsx-a11y"
+  ],
+  "jsPlugins": ["eslint-plugin-astro"],
+  "settings": {
+    "react": {
+      "version": "19"
+    }
+  },
+  "rules": {
+    "typescript/triple-slash-reference": "off",
+    "react/react-in-jsx-scope": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.astro"],
+      "rules": {
+        "astro/no-conflict-set-directives": "error",
+        "astro/no-unused-define-vars-in-style": "error"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "dist",
+    ".astro",
+    "node_modules",
+    "テックブログ作成",
+    "**/*.html",
+    "__snapshots__"
+  ]
+}
