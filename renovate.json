@@ -13,7 +13,7 @@
   "commitMessagePrefix": "⬆️ chore:",
   "commitMessageAction": "",
   "commitMessageTopic": "{{depName}}",
-  "commitMessageExtra": "を v{{newVersion}} にアップデート",
+  "commitMessageExtra": "を {{newVersion}} にアップデート",
   "vulnerabilityAlerts": {
     "enabled": true,
     "schedule": []
