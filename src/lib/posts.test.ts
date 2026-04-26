@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { aggregateTags, pickupPosts, relatedPosts } from "./posts";
 
 type P = {
-	slug: string;
+	id: string;
 	data: {
 		title: string;
 		tags: string[];
@@ -14,13 +14,13 @@ type P = {
 };
 
 const mk = (
-	slug: string,
+	id: string,
 	publishedAt: string,
 	tags: string[],
 	extra: Partial<P["data"]> = {},
 ): P => ({
-	slug,
-	data: { title: slug, tags, publishedAt: new Date(publishedAt), ...extra },
+	id,
+	data: { title: id, tags, publishedAt: new Date(publishedAt), ...extra },
 });
 
 describe("aggregateTags", () => {
@@ -51,7 +51,7 @@ describe("pickupPosts", () => {
 			mk("newest", "2026-05-01", []),
 			mk("mid", "2026-03-01", []),
 		];
-		const r = pickupPosts(posts, 3).map((p) => p.slug);
+		const r = pickupPosts(posts, 3).map((p) => p.id);
 		expect(r).toEqual(["new-feat", "old-feat", "newest"]);
 	});
 });
@@ -66,7 +66,7 @@ describe("relatedPosts", () => {
 			mk("one-old", "2026-01-19", ["a"]),
 			mk("none", "2026-05-01", ["x"]),
 		];
-		const r = relatedPosts(target, candidates, 3).map((p) => p.slug);
+		const r = relatedPosts(target, candidates, 3).map((p) => p.id);
 		expect(r).toEqual(["two", "one-new", "one-old"]);
 	});
 });

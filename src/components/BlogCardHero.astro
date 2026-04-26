@@ -40,7 +40,7 @@ const tags = post.data.tags.slice(0, 3);
 		<p class="hero-dek">{post.data.description}</p>
 		<div class="hero-footer">
 			<span>{formatLongDate(post.data.publishedAt)}</span>
-			<a href={`/blog/${post.slug}/`} class="read-link">read →</a>
+			<a href={`/blog/${post.id}/`} class="read-link">read →</a>
 		</div>
 	</div>
 </section>

@@ -1,17 +1,17 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import { relatedPosts, visiblePosts } from "@/lib/posts";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  return posts.map((p) => ({ params: { slug: p.slug }, props: { post: p } }));
+  return posts.map((p) => ({ params: { slug: p.id }, props: { post: p } }));
 }
 
 const { post } = Astro.props;
 const all = await getCollection("blog");
 const related = relatedPosts(post, visiblePosts(all), 3);
-const { Content, headings } = await post.render();
+const { Content, headings } = await render(post);
 ---
 
 <ArticleLayout post={post} headings={headings} related={related}>

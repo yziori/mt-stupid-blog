@@ -8,7 +8,7 @@ const badgeLabel = post.data.pickupBadge === "editor" ? "editor's" : "★ top";
 const badgeClass = post.data.pickupBadge === "editor" ? "editor" : "";
 ---
 
-<a class="pickup" href={`/blog/${post.slug}/`}>
+<a class="pickup" href={`/blog/${post.id}/`}>
 	<div class="pickup-img">
 		<span class={`pickup-badge ${badgeClass}`}>{badgeLabel}</span>
 		{post.data.thumbnail && <Image src={post.data.thumbnail} alt="" class="cov-img" />}
