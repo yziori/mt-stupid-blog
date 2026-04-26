@@ -10,8 +10,10 @@
     "astro": "astro",
     "test": "vitest run",
     "test:watch": "vitest",
-    "biome:check": "biome check src",
-    "biome:format": "biome format src --write",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt src",
+    "format:check": "oxfmt --check src",
     "deploy": "pnpm build && wrangler deploy"
   },
   "dependencies": {
@@ -26,10 +28,13 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
-    "@biomejs/biome": "1.9.4",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "astro-eslint-parser": "^1.4.0",
+    "eslint-plugin-astro": "^1.7.0",
     "lefthook": "^1.11.3",
+    "oxfmt": "^0.46.0",
+    "oxlint": "^1.61.0",
     "typescript": "^5.6.0",
     "vitest": "^3.0.8",
     "wrangler": "^4.0.0"

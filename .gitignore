@@ -52,3 +52,6 @@ dist/
 # Wrangler
 .wrangler/
 .dev.vars
+
+# Git worktrees
+.worktrees/

@@ -50,12 +50,7 @@ export const projects: Project[] = [
 			静的データ管理による高速な表示と、レスポンシブデザインによる優れたユーザー体験を実現。
 			Container/UIパターンを採用し、保守性の高い設計を心がけました。
 		`,
-		technologies: [
-			"Next.js 15",
-			"TypeScript",
-			"Tailwind CSS",
-			"React",
-		],
+		technologies: ["Next.js 15", "TypeScript", "Tailwind CSS", "React"],
 		images: ["/images/mt-stupid.png"],
 		startDate: "2024-07-01",
 		status: "in-progress",
