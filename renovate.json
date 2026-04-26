@@ -1,0 +1,48 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommitsDisabled"
+  ],
+  "timezone": "Asia/Tokyo",
+  "schedule": ["before 9am on monday"],
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 0,
+  "commitMessagePrefix": "⬆️ chore:",
+  "commitMessageAction": "",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "を v{{newVersion}} にアップデート",
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "schedule": []
+  },
+  "lockFileMaintenance": {
+    "enabled": false
+  },
+  "packageRules": [
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "groupName": "astro",
+      "matchPackageNames": ["astro", "/^@astrojs\\//"]
+    },
+    {
+      "groupName": "react",
+      "matchPackageNames": ["react", "react-dom", "/^@types\\/react/"]
+    },
+    {
+      "groupName": "rehype",
+      "matchPackageNames": ["/^rehype-/"]
+    },
+    {
+      "groupName": "github-actions",
+      "matchManagers": ["github-actions"]
+    }
+  ]
+}
